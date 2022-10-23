@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project: MyString
+  fps: 1
+  resolution: MyString
+  client: one
+  user: one
+
+two:
+  project: MyString
+  fps: 1
+  resolution: MyString
+  client: two
+  user: two

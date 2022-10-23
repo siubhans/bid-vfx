@@ -10,23 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_16_112339) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_16_130232) do
   create_table "bids", force: :cascade do |t|
-    t.string "name"
+    t.string "project"
+    t.integer "fps"
+    t.string "resolution"
+    t.integer "client_id", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_bids_on_client_id"
     t.index ["user_id"], name: "index_bids_on_user_id"
   end
 
   create_table "clients", force: :cascade do |t|
     t.string "name"
-    t.integer "bid_id", null: false
-    t.string "user"
-    t.string "references"
+    t.string "producer"
+    t.string "client"
+    t.string "studio"
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["bid_id"], name: "index_clients_on_bid_id"
+    t.index ["user_id"], name: "index_clients_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -36,6 +41,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_16_112339) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "bids", "clients"
   add_foreign_key "bids", "users"
-  add_foreign_key "clients", "bids"
+  add_foreign_key "clients", "users"
 end
