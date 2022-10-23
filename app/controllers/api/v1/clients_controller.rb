@@ -1,6 +1,7 @@
 module Api
   module V1
     class ClientsController < ApplicationController
+      before_action :authorize_access_request!, except: [:show, :index]
       before_action :set_client, only: %i[ show update destroy ]
 
       # GET /clients
@@ -48,7 +49,7 @@ module Api
 
         # Only allow a list of trusted parameters through.
         def client_params
-          params.require(:client).permit(:name, :producer, :client, :studio, :user_id)
+          params.require(:client).permit(:name, :producer, :client, :studio)
         end
     end
   end

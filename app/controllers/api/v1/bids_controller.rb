@@ -1,11 +1,14 @@
 module Api
   module V1
     class BidsController < ApplicationController
+      #make sure user is signed in before any methods here
+      before_action :authorize_access_request!
       before_action :set_bid, only: %i[ show update destroy ]
 
       # GET /bids
       def index
-        @bids = Bid.all
+        #scoped to current user
+        @bids = current_user.bids.all
 
         render json: @bids
       end
@@ -17,7 +20,7 @@ module Api
 
       # POST /bids
       def create
-        @bid = Bid.new(bid_params)
+        @bid = current_user.bids.build(bid_params)
 
         if @bid.save
           render json: @bid, status: :created, location: @bid
@@ -43,12 +46,12 @@ module Api
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_bid
-          @bid = Bid.find(params[:id])
+          @bid = curent_user.bids.find(params[:id])
         end
 
         # Only allow a list of trusted parameters through.
         def bid_params
-          params.require(:bid).permit(:project, :fps, :resolution, :client_id, :user_id)
+          params.require(:bid).permit(:project, :fps, :resolution, :client_id)
         end
     end
   end
