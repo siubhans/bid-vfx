@@ -1,11 +1,18 @@
 <template>
   <div>
-    client
+    <Sidebar />
+    clients
   </div>
 </template>
 
 <script>
-export default {};
+import Sidebar from "@/components/ui/Sidebar.vue";
+
+export default {
+  components: {
+    Sidebar
+  }
+};
 </script>
 
 <style scoped></style>
