@@ -1,34 +1,39 @@
 <template>
   <div>
-    <h3>Sign In</h3>
-    <form @submit.prevent="signin">
-      <div v-if="error">{{ error }}</div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input
-          type="email"
-          class="form-control"
-          v-model="email"
-          id="email"
-          placeholder="someone@gmail.com"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          v-model="password"
-          id="password"
-        />
-      </div>
-      <button type="submit" class="btn btn-secondary">Sign in</button>
-    </form>
-    <router-link to="/signup">Sign Up</router-link>
+    <Sidebar />
+    <div class="container">
+      <h3>Sign In</h3>
+      <form @submit.prevent="signin">
+        <div v-if="error">{{ error }}</div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            v-model="email"
+            id="email"
+            placeholder="someone@gmail.com"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            v-model="password"
+            id="password"
+          />
+        </div>
+        <button type="submit" class="btn btn-secondary">Sign in</button>
+      </form>
+      <router-link to="/register">Register here to set up account</router-link>
+    </div>
   </div>
 </template>
 
 <script>
+import Sidebar from "@/components/ui/Sidebar.vue";
+
 export default {
   name: "Signin",
   data() {
@@ -43,6 +48,9 @@ export default {
   },
   updated() {
     this.checkSignedIn();
+  },
+  components: {
+    Sidebar
   },
   methods: {
     signin() {
@@ -69,16 +77,16 @@ export default {
       this.error =
         (error.response && error.response.data && error.response.data.error) ||
         "";
-        delete localStorage.csrf
-        delete localStorage.signedIn
+      delete localStorage.csrf;
+      delete localStorage.signedIn;
     },
-    checkSignedIn () {
-        if(localStorage.signedIn){
-            this.$router.replace("/bids");
-        }
+    checkSignedIn() {
+      if (localStorage.signedIn) {
+        this.$router.replace("/bids");
+      }
     }
   }
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>
