@@ -55,7 +55,7 @@ export default {
     this.checkSignedIn();
   },
   methods: {
-    signin() {
+    register() {
       this.$http.plain
         .post("/register", {
           email: this.email,
