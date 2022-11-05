@@ -1,5 +1,6 @@
 <template>
   <div>
+    <BurgerMenu />
     <Sidebar />
     <div class="container">
       <h3>Sign In</h3>
@@ -33,6 +34,7 @@
 
 <script>
 import Sidebar from "@/components/ui/Sidebar.vue";
+import BurgerMenu from "@/components/ui/BurgerMenu.vue";
 
 export default {
   name: "Signin",
@@ -50,7 +52,8 @@ export default {
     this.checkSignedIn();
   },
   components: {
-    Sidebar
+    Sidebar,
+    BurgerMenu
   },
   methods: {
     signin() {
