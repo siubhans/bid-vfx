@@ -18,17 +18,14 @@ export default {
     };
   },
   created() {
-    if (localStorage.signedIn) {
-      this.$router.replace("/");
-    } else {
-      this.$http.secured
-        .get("/api/v1/clients")
-        .then((response) => {
-          this.clients = response.data;
-          console.log("here", this.clients);
-        })
-        .catch((error) => this.setError(error, "Something went wrong"));
-    }
+    this.getList();
+  },
+  methods: {
+    getList() {
+      this.plain.get("/").then((response) => {
+        console.log(response.data);
+      });
+    },
   },
 };
 </script>

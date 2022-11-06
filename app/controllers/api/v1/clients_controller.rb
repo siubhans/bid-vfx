@@ -1,8 +1,9 @@
 module Api
   module V1
     class ClientsController < ApplicationController
-      before_action :authorize_access_request!, except: [:show, :index]
-      before_action :set_client, only: %i[ show update destroy ]
+      skip_before_filter :verify_authenticity_token
+      # before_action :authorize_access_request!, except: [:show, :index]
+      # before_action :set_client, only: %i[ show update destroy ]
 
       # GET /clients
       def index

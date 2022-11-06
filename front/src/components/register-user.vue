@@ -45,7 +45,7 @@ export default {
       email: "",
       password: "",
       confirmPassword: "",
-      error: ""
+      error: "",
     };
   },
   created() {
@@ -56,14 +56,14 @@ export default {
   },
   methods: {
     register() {
-      this.$http.plain
+      this.plain
         .post("/register", {
           email: this.email,
           password: this.password,
-          confirmPassword: this.confirmPassword
+          confirmPassword: this.confirmPassword,
         })
-        .then(response => this.signinSuccessful(response))
-        .catch(error => this.signinFailed(error));
+        .then((response) => this.signinSuccessful(response))
+        .catch((error) => this.signinFailed(error));
     },
     signinSuccessful(response) {
       if (!response.data.csrf) {
@@ -87,7 +87,7 @@ export default {
       if (localStorage.signedIn) {
         this.$router.replace("/bids");
       }
-    }
-  }
+    },
+  },
 };
 </script>
