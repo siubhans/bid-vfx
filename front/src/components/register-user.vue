@@ -57,21 +57,16 @@ export default {
   methods: {
     register() {
       this.plain
-        .post("/register", {
+        .post("/signup", {
           email: this.email,
           password: this.password,
           confirmPassword: this.confirmPassword,
         })
-        .then((response) => this.signinSuccessful(response))
+        .then(this.signinSuccessful())
         .catch((error) => this.signinFailed(error));
     },
-    signinSuccessful(response) {
-      if (!response.data.csrf) {
-        this.signinFailed(response);
-        return;
-      }
-
-      localStorage.csrf = response.data.csrf;
+    signinSuccessful() {
+      // localStorage.csrf = response.data.csrf;
       localStorage.signedIn = true;
       this.error = "";
       this.$router.replace("/bids");

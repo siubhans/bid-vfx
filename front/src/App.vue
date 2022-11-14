@@ -5,7 +5,15 @@
 </template>
 
 <script>
-export default {};
+import SvgIcon from "vue3-icon";
+
+export default {
+  setup() {
+    return {
+      SvgIcon,
+    };
+  },
+};
 </script>
 
 <style>
