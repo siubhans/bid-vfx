@@ -1,5 +1,6 @@
 <template>
   <div>
+    <button v-if="loggedIn" @click="logout()">Logout</button>
     <VueSidebarMenuAkahon
       menuTitle="Bid VFX"
       :isSearch="false"
@@ -50,8 +51,21 @@ export default {
           icon: "bx-home-circle",
         },
       ],
-      yourStudio: "Your Studio Here",
+      yourStudio: localStorage.email ? localStorage.email : "",
     };
+  },
+  methods: {
+    logout() {
+      this.secured.delete("/signin");
+      delete localStorage.email;
+      delete localStorage.signedIn;
+      this.$router.replace("/");
+    },
+  },
+  computed: {
+    loggedIn() {
+      return localStorage.signedIn == 1;
+    },
   },
 };
 </script>

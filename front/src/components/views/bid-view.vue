@@ -1,5 +1,6 @@
 <template>
   <div>
+    <sideBar />
     <mainHeading title="Bids" />
     <ul>
       <li v-for="item in bids" :key="item.email"></li>
@@ -8,11 +9,13 @@
 </template>
 
 <script>
+import sideBar from "@/components/ui/side-bar.vue";
 import mainHeading from "@/components/ui/main-heading.vue";
 
 export default {
   components: {
     mainHeading,
+    sideBar,
   },
   data() {
     return {
