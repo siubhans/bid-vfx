@@ -62,17 +62,15 @@ export default {
           email: this.email,
           password: this.password,
         })
-        .then((response) => this.signinSuccessful(response))
-        .catch((error) => this.signinFailed(error));
+        .then(this.signinSuccessful())
+        .catch((error) => console.log(error));
     },
-    signinSuccessful(response) {
-      if (!response.data.csrf) {
-        this.signinFailed(response);
-        return;
-      }
-
-      localStorage.csrf = response.data.csrf;
-      localStorage.signedIn = true;
+    signinSuccessful() {
+      localStorage.clear();
+      // localStorage.csrf = response.data.csrf;
+      localStorage.email = this.email;
+      localStorage.signedIn = 1;
+      console.log(localStorage);
       this.error = "";
       this.$router.replace("/bids");
     },
@@ -81,15 +79,14 @@ export default {
         (error.response && error.response.data && error.response.data.error) ||
         "";
       delete localStorage.csrf;
+      delete localStorage.email;
       delete localStorage.signedIn;
     },
     checkSignedIn() {
-      if (localStorage.signedIn) {
+      if (localStorage.signedIn == 1) {
         this.$router.replace("/bids");
       }
     },
   },
 };
 </script>
-
-<style scoped></style>
