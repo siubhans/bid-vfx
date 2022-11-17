@@ -56,4 +56,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.nav-list {
+  overflow: hidden;
+}
+</style>

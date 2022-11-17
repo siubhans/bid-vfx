@@ -1,17 +1,17 @@
 <template>
   <div>
-    <sideBar />
     clients
+    <ul id="example-1">
+      <li v-for="item in clients" :key="item.name">
+        {{ item.email }}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import sideBar from "@/components/ui/side-bar.vue";
-
 export default {
-  components: {
-    sideBar,
-  },
+  components: {},
   data() {
     return {
       clients: [],
@@ -19,11 +19,17 @@ export default {
   },
   created() {
     this.getList();
+    this.printList();
   },
   methods: {
     getList() {
-      this.plain.get("/").then((response) => {
+      this.plain.get("/clients/").then((response) => {
         console.log(response.data);
+      });
+    },
+    printList() {
+      this.secured.get("/clients").then((response) => {
+        this.clients = response.data;
       });
     },
   },
