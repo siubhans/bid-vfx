@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     signin() {
-      this.$http.plain
+      this.plain
         .post("/signin", {
           email: this.email,
           password: this.password,

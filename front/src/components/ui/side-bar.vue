@@ -1,30 +1,63 @@
 <template>
   <div>
-    <menuItem
-      v-for="sideMenuItem in sideMenuItems"
-      :key="sideMenuItem"
-      :item-name="sideMenuItem"
-      :button-color="
-        sideMenuItem === 'new bid' ? 'green__button' : 'grey__button'
-      "
+    <VueSidebarMenuAkahon
+      menuTitle="Bid VFX"
+      :isSearch="false"
+      profileImg=""
+      :profileName="yourStudio"
+      profileRole=""
+      :isExitButton="false"
+      :menuItems="sideMenuItems"
+      menuIcon="bx-child"
+      bgColor="#304360"
     />
   </div>
 </template>
 
 <script>
-import menuItem from "@/components/ui/menu-item.vue";
+import VueSidebarMenuAkahon from "vue-sidebar-menu-akahon";
 
 export default {
   components: {
-    menuItem,
+    VueSidebarMenuAkahon,
   },
   data() {
     return {
-      sideMenuItems: ["new bid", "bids", "clients", "users", "studio"],
+      sideMenuItems: [
+        {
+          link: "/newbid",
+          name: "new bid",
+          tooltip: "new bid",
+          icon: "bx-plus",
+        },
+        { link: "/bids", name: "bids", tooltip: "bids", icon: "bx-grid-alt" },
+        {
+          link: "/clients",
+          name: "clients",
+          tooltip: "clients",
+          icon: "bx-group",
+        },
+        {
+          link: "/users",
+          name: "users",
+          tooltip: "users",
+          icon: "bx-user",
+        },
+        {
+          link: "/studio",
+          name: "studio",
+          tooltip: "studio",
+          icon: "bx-home-circle",
+        },
+      ],
       yourStudio: "Your Studio Here",
     };
   },
 };
 </script>
 
-<style></style>
+<style>
+.nav-list {
+  overflow: hidden;
+}
+</style>

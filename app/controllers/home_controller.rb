@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
     def index
-        @clients = Client.all
-        render json: @clients
+        @users = User.all
+        render json: @users
     end
 end
