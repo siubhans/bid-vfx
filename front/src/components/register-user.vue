@@ -63,11 +63,14 @@ export default {
           confirmPassword: this.confirmPassword,
         })
         .then(this.signinSuccessful())
-        .catch((error) => this.signinFailed(error));
+        .catch((error) => console.log(error));
     },
     signinSuccessful() {
+      localStorage.clear();
       // localStorage.csrf = response.data.csrf;
-      localStorage.signedIn = true;
+      localStorage.email = this.email;
+      localStorage.signedIn = 1;
+      console.log(localStorage);
       this.error = "";
       this.$router.replace("/bids");
     },
@@ -76,10 +79,11 @@ export default {
         (error.response && error.response.data && error.response.data.error) ||
         "";
       delete localStorage.csrf;
+      delete localStorage.email;
       delete localStorage.signedIn;
     },
     checkSignedIn() {
-      if (localStorage.signedIn) {
+      if (localStorage.signedIn == 1) {
         this.$router.replace("/bids");
       }
     },
