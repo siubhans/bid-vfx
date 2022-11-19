@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+    # before_action :authorize_access_request!
     def index
         @users = User.all
         render json: @users

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sideBar />
+    <sideBar v-if="loggedIn" />
     studio
   </div>
 </template>
@@ -11,6 +11,11 @@ import sideBar from "@/components/ui/side-bar.vue";
 export default {
   components: {
     sideBar,
+  },
+  computed: {
+    loggedIn() {
+      return localStorage.signedIn == 1;
+    },
   },
 };
 </script>

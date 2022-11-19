@@ -1,13 +1,12 @@
 module Api
   module V1
     class ClientsController < ApplicationController
-      # skip_before_filter :verify_authenticity_token
-      # before_action :authorize_access_request!, except: [:show, :index]
-      # before_action :set_client, only: %i[ show update destroy ]
+      before_action :authorize_access_request!
+      before_action :set_client, only: %i[ show update destroy ]
 
       # GET /clients
       def index
-        @clients = Client.all
+        @clients =  Client.all
         render json: @clients
       end
 
@@ -18,7 +17,7 @@ module Api
 
       # POST /clients
       def create
-        @client = Client.new(client_params)
+        client = Client.new(client_params)
 
         if @client.save
           render json: @client, status: :created, location: @client

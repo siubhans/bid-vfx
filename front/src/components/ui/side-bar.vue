@@ -51,7 +51,6 @@ export default {
           icon: "bx-home-circle",
         },
       ],
-      yourStudio: localStorage.email ? localStorage.email : "",
     };
   },
   methods: {
@@ -65,6 +64,9 @@ export default {
   computed: {
     loggedIn() {
       return localStorage.signedIn == 1;
+    },
+    yourStudio() {
+      return localStorage.email ? localStorage.email : "";
     },
   },
 };

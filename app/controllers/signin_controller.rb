@@ -10,7 +10,8 @@ class SigninController < ApplicationController
       response.set_cookie(JWTSessions.access_cookie,
                         value: tokens[:access],
                         httponly: true,
-                        secure: Rails.env.production?)
+                        secure: Rails.env.production?
+                      )
       render json: { csrf: tokens[:csrf] }
     else
       not_authorized
@@ -29,3 +30,4 @@ class SigninController < ApplicationController
     render json: { error: "Cannot find email/password combination" }, status: :not_found
   end
 end
+
