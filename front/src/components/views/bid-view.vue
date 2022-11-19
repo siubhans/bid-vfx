@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sideBar />
+    <sideBar v-if="loggedIn" />
     <mainHeading title="Bids" />
     <ul>
       <li v-for="item in bids" :key="item.email"></li>
@@ -36,6 +36,11 @@ export default {
       this.plain.get("/bids").then((response) => {
         this.bids = response.data;
       });
+    },
+  },
+  computed: {
+    loggedIn() {
+      return localStorage.signedIn == 1;
     },
   },
 };

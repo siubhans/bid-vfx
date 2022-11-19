@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sideBar />
+    <sideBar v-if="loggedIn" />
     <mainHeading title="New Client" />
     <form @submit.prevent="addNewClient">
       <div v-if="error">{{ error }}</div>
@@ -37,7 +37,7 @@
         <label for="studio" class="form-label">Studio</label>
         <input type="text" class="form-control" v-model="studio" id="studio" />
       </div>
-      <button type="submit" class="btn btn-secondary">Register</button>
+      <button type="submit" class="btn btn-secondary">Create</button>
     </form>
   </div>
 </template>
@@ -72,6 +72,11 @@ export default {
           user_id: 2,
         })
         .catch((error) => console.log(error));
+    },
+  },
+  computed: {
+    loggedIn() {
+      return localStorage.signedIn == 1;
     },
   },
 };

@@ -15,4 +15,3 @@ class RefreshController < ApplicationController
     render json: { csrf: tokens[:csrf] }
   end
 end
-

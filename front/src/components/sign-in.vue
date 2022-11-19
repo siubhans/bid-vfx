@@ -1,7 +1,6 @@
 <template>
   <div>
-    <burgerMenu />
-    <sideBar />
+    <sideBar v-if="loggedIn" />
     <div class="container">
       <h3>Sign In</h3>
       <form @submit.prevent="signin">
@@ -34,7 +33,6 @@
 
 <script>
 import sideBar from "@/components/ui/side-bar.vue";
-import burgerMenu from "@/components/ui/burger-menu.vue";
 
 export default {
   name: "signIn",
@@ -53,7 +51,6 @@ export default {
   },
   components: {
     sideBar,
-    burgerMenu,
   },
   methods: {
     signin() {
@@ -66,12 +63,11 @@ export default {
         .catch((error) => console.log(error));
     },
     signinSuccessful() {
-      localStorage.clear();
-      // localStorage.csrf = response.data.csrf;
+      //localStorage.csrf = response.data.csrf;
       localStorage.email = this.email;
       localStorage.signedIn = 1;
-      console.log(localStorage);
       this.error = "";
+      this.$router.replace("/bids");
     },
     signinFailed(error) {
       this.error =
@@ -85,6 +81,11 @@ export default {
       if (localStorage.signedIn == 1) {
         this.$router.replace("/bids");
       }
+    },
+  },
+  computed: {
+    loggedIn() {
+      return localStorage.signedIn == 1;
     },
   },
 };
