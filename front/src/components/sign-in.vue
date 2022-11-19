@@ -72,7 +72,6 @@ export default {
       localStorage.signedIn = 1;
       console.log(localStorage);
       this.error = "";
-      this.$router.replace("/bids");
     },
     signinFailed(error) {
       this.error =
