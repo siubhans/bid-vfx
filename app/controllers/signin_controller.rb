@@ -29,3 +29,4 @@ class SigninController < ApplicationController
     render json: { error: "Cannot find email/password combination" }, status: :not_found
   end
 end
+
