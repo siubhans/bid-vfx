@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_16_130232) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_20_192656) do
   create_table "bids", force: :cascade do |t|
     t.string "project"
     t.integer "fps"
@@ -34,6 +34,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_16_130232) do
     t.index ["user_id"], name: "index_clients_on_user_id"
   end
 
+  create_table "studios", force: :cascade do |t|
+    t.string "name"
+    t.string "logo"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_studios_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest", null: false
@@ -44,4 +53,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_16_130232) do
   add_foreign_key "bids", "clients"
   add_foreign_key "bids", "users"
   add_foreign_key "clients", "users"
+  add_foreign_key "studios", "users"
 end
