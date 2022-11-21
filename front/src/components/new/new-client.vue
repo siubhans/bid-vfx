@@ -4,16 +4,7 @@
     <mainHeading title="New Client" />
     <form @submit.prevent="addNewClient">
       <div v-if="error">{{ error }}</div>
-      <div class="mb-3">
-        <label for="client" class="form-label">Client</label>
-        <input
-          type="text"
-          class="form-control"
-          v-model="client"
-          id="client"
-          placeholder="Some Client Name"
-        />
-      </div>
+      <div class="mb-3"></div>
       <div class="mb-3">
         <label for="name" class="form-label">Name</label>
         <input
@@ -55,23 +46,28 @@ export default {
     return {
       name: "",
       producer: "",
-      client: "",
       studio: "",
     };
   },
-  created() {},
+  created() {
+    this.getCurrentUser();
+  },
   methods: {
     addNewClient() {
-      this.secured
+      this.plain
         .post("/clients", {
-          name: this.name,
-          producer: this.producer,
-          client: this.client,
-          studio: this.studio,
-          id: 3,
-          user_id: 2,
+          client: {
+            name: this.name,
+            studio: this.studio,
+            producer: this.producer,
+            user_id: 1,
+          },
         })
-        .catch((error) => console.log(error));
+        .then((response) => {
+          console.log(response.data);
+          this.$router.replace("/clients");
+        })
+        .catch((error) => console.log(error, "Cannot create client"));
     },
   },
   computed: {

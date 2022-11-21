@@ -58,6 +58,7 @@ export default {
       this.secured.delete("/signin");
       delete localStorage.email;
       delete localStorage.signedIn;
+      delete localStorage.message;
       this.$router.replace("/");
     },
   },
