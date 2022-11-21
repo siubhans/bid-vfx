@@ -84,6 +84,7 @@ export default {
       }
       localStorage.csrf = response.data.csrf;
       localStorage.message = "You have successfully registered";
+      localStorage.email = this.email;
       localStorage.signedIn = 1;
       this.error = "";
       this.$router.replace("/studio");

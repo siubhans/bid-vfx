@@ -65,6 +65,7 @@ export default {
         return;
       }
       localStorage.csrf = response.data.csrf;
+      localStorage.email = this.email;
       localStorage.signedIn = 1;
       this.error = "";
       this.$router.replace("/bids");

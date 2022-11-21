@@ -49,17 +49,25 @@ export default {
       studio: "",
     };
   },
-  created() {},
+  created() {
+    this.getCurrentUser();
+  },
   methods: {
     addNewClient() {
       this.plain
         .post("/clients", {
-          name: this.name,
-          producer: this.producer,
-          studio: this.studio,
-          user_id: 1,
+          client: {
+            name: this.name,
+            studio: this.studio,
+            producer: this.producer,
+            user_id: 1,
+          },
         })
-        .catch((error) => console.log(error));
+        .then((response) => {
+          console.log(response.data);
+          this.$router.replace("/clients");
+        })
+        .catch((error) => console.log(error, "Cannot create client"));
     },
   },
   computed: {

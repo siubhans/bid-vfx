@@ -10,11 +10,12 @@ Rails.application.routes.draw do
   root to: "home#index"
   
   get "clients", to: "api/v1/clients#index"
-  get "clients/1", to: "api/v1/clients#show"
+  get "clients/:id", to: "api/v1/clients#show"
   post "clients", to: "api/v1/clients#create"
-  put "clients/1", to: "api/v1/clients#update"
-  delete "clients/1", to: "api/v1/clients#destroy"
+  patch "clients/:id", to: "api/v1/clients#update"
+  delete "clients/:id", to: "api/v1/clients#destroy"
   post "signin", to: "signin#create"
+  get "users/:id", to: "signin#show"
   post "refresh", controller: :refresh, action: :create 
   # post "signin", controller: :signin, action: :create
   post "signup", controller: :signup, action: :create
