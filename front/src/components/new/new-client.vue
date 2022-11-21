@@ -68,8 +68,7 @@ export default {
           producer: this.producer,
           client: this.client,
           studio: this.studio,
-          id: 3,
-          user_id: 2,
+          user_id: 1,
         })
         .catch((error) => console.log(error));
     },

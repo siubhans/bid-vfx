@@ -14,6 +14,17 @@
         />
       </div>
       <div class="mb-3">
+        <label for="studio" class="form-label">Studio</label>
+        <input
+          type="text"
+          class="form-control"
+          v-model="studio"
+          id="studio"
+          placeholder="Your Studio Name"
+        />
+      </div>
+
+      <div class="mb-3">
         <label for="password" class="form-label">Password</label>
         <input
           type="password"
@@ -61,6 +72,7 @@ export default {
           email: this.email,
           password: this.password,
           confirmPassword: this.confirmPassword,
+          studio: this.studio,
         })
         .then(this.signinSuccessful())
         .catch((error) => console.log(error));
