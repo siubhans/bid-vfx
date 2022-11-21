@@ -1,7 +1,6 @@
 module Api
   module V1
     class ClientsController < ApplicationController
-      before_action :authorize_access_request!
       before_action :set_client, only: %i[ show update destroy ]
 
       # GET /clients
@@ -19,7 +18,7 @@ module Api
       def create
         client = Client.new(client_params)
 
-        if @client.save
+        if client.save
           render json: @client, status: :created, location: @client
         else
           render json: @client.errors, status: :unprocessable_entity
@@ -41,14 +40,12 @@ module Api
       end
 
       private
-        # Use callbacks to share common setup or constraints between actions.
         def set_client
           @client = Client.find(params[:id])
         end
 
-        # Only allow a list of trusted parameters through.
         def client_params
-          params.require(:client).permit(:name, :producer, :client, :studio)
+          params.require(:client).permit(:name, :producer, :studio, :user_id)
         end
     end
   end

@@ -55,16 +55,16 @@ export default {
   methods: {
     signin() {
       this.plain
-        .post("/signin", {
-          email: this.email,
-          password: this.password,
-        })
-        .then(this.signinSuccessful())
-        .catch((error) => console.log(error));
+        .post("/signin", { email: this.email, password: this.password })
+        .then((response) => this.signinSuccessful(response))
+        .catch((error) => this.signinFailed(error));
     },
-    signinSuccessful() {
-      //localStorage.csrf = response.data.csrf;
-      localStorage.email = this.email;
+    signinSuccessful(response) {
+      if (!response.data.csrf) {
+        this.signinFailed(response);
+        return;
+      }
+      localStorage.csrf = response.data.csrf;
       localStorage.signedIn = 1;
       this.error = "";
       this.$router.replace("/bids");

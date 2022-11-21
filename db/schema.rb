@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_21_195439) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_21_204839) do
   create_table "bids", force: :cascade do |t|
     t.string "project"
     t.integer "fps"
@@ -26,7 +26,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_195439) do
   create_table "clients", force: :cascade do |t|
     t.string "name"
     t.string "producer"
-    t.string "client"
     t.string "studio"
     t.integer "user_id", null: false
     t.datetime "created_at", null: false

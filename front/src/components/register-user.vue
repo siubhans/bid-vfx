@@ -74,17 +74,19 @@ export default {
           confirmPassword: this.confirmPassword,
           studio: this.studio,
         })
-        .then(this.signinSuccessful())
-        .catch((error) => console.log(error));
+        .then((response) => this.registerSuccessful(response))
+        .catch((error) => this.signinFailed(error));
     },
-    signinSuccessful() {
-      localStorage.clear();
-      // localStorage.csrf = response.data.csrf;
-      localStorage.email = this.email;
+    registerSuccessful(response) {
+      if (!response.data.csrf) {
+        this.signinFailed(response);
+        return;
+      }
+      localStorage.csrf = response.data.csrf;
+      localStorage.message = "You have successfully registered";
       localStorage.signedIn = 1;
-      console.log(localStorage);
       this.error = "";
-      this.$router.replace("/bids");
+      this.$router.replace("/studio");
     },
     signinFailed(error) {
       this.error =

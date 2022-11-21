@@ -22,7 +22,7 @@ module Api
       def create
         @bid = current_user.bids.build(bid_params)
 
-        if @bid.save
+        if bid.save
           render json: @bid, status: :created, location: @bid
         else
           render json: @bid.errors, status: :unprocessable_entity

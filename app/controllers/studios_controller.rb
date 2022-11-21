@@ -17,7 +17,7 @@ class StudiosController < ApplicationController
   def create
     @studio = Studio.new(studio_params)
 
-    if @studio.save
+    if studio.save
       render json: @studio, status: :created, location: @studio
     else
       render json: @studio.errors, status: :unprocessable_entity
