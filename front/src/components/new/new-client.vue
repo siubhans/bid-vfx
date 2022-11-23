@@ -50,7 +50,6 @@ export default {
     };
   },
   created() {
-    this.getCurrentUser();
   },
   methods: {
     addNewClient() {
