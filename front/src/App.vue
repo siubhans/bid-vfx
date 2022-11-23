@@ -18,6 +18,7 @@ export default {
 
 <style>
 @import "./style/variables.css";
+
 #app {
   height: 100vh;
   background-color: var(--mainNavy);
