@@ -49,9 +49,7 @@ export default {
       studio: "",
     };
   },
-  created() {
-    this.getCurrentUser();
-  },
+  created() {},
   methods: {
     addNewClient() {
       this.plain
