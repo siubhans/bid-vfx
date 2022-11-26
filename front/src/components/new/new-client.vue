@@ -52,7 +52,7 @@ export default {
   created() {},
   methods: {
     addNewClient() {
-      this.plain
+      this.secured
         .post("/clients", {
           client: {
             name: this.name,

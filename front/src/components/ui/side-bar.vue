@@ -26,7 +26,7 @@ export default {
     return {
       sideMenuItems: [
         {
-          link: "/newbid",
+          link: "/newBid",
           name: "new bid",
           tooltip: "new bid",
           icon: "bx-plus",

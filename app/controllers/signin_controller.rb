@@ -19,6 +19,7 @@ class SigninController < ApplicationController
   end
   # GET /USERS/1
   def show
+    @user = User.find(email: params[:email])
     render json: @user
   end
 

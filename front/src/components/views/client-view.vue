@@ -47,27 +47,20 @@ export default {
     };
   },
   created() {
-    this.getList();
     this.printList();
   },
   methods: {
-    getList() {
-      this.plain.get("/clients").then((response) => {
-        console.log(response.data);
-      });
-    },
     deleteClient(client) {
-      this.plain
+      this.secured
         .delete(`/clients/${client}`)
         .then(this.printList())
         .catch((error) => console.log(error, "Cannot delete record"));
     },
     editClient(index) {
-      console.log(index);
       this.editing = index;
     },
     updateClient(client, index) {
-      this.plain
+      this.secured
         .patch(`/clients/${client}`, {
           client: {
             name: this.clients[index].name,

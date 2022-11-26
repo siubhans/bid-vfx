@@ -2,8 +2,8 @@ module Api
   module V1
     class BidsController < ApplicationController
       #make sure user is signed in before any methods here
-      before_action :authorize_by_access_request!
-      before_action :set_bid, only: %i[ show update destroy ]
+      # before_action :authorize_access_request!
+      # before_action :set_bid, only: %i[ show update destroy ]
 
       # GET /bids
       def index
@@ -20,7 +20,7 @@ module Api
 
       # POST /bids
       def create
-        @bid = current_user.bids.build(bid_params)
+        bid = current_user.bids.build(bid_params)
 
         if bid.save
           render json: @bid, status: :created, location: @bid
