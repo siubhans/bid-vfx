@@ -42,7 +42,7 @@ module Api
 
       private
         def set_client
-          @client = Client.find(params[:id])
+          @client = current_user.clients.find(params[:id])
         end
 
         def client_params

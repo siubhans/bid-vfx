@@ -22,11 +22,19 @@
         v-model="clients[index].studio"
       />
       <li v-else><b>Studio:</b> {{ client.studio }}</li>
-      <button @click="deleteClient(client.id)">Delete</button>
-      <button v-if="editing === index" @click="updateClient(client.id, index)">
+      <button class="btn btn-light" @click="deleteClient(client.id)">
+        Delete
+      </button>
+      <button
+        class="btn btn-light"
+        v-if="editing === index"
+        @click="updateClient(client.id, index)"
+      >
         Update
       </button>
-      <button v-else @click="editClient(index)">Edit</button>
+      <button class="btn btn-light" v-else @click="editClient(index)">
+        Edit
+      </button>
     </ul>
   </div>
 </template>
@@ -47,9 +55,6 @@ export default {
     };
   },
   created() {
-    this.printList();
-  },
-  updated() {
     this.printList();
   },
   methods: {

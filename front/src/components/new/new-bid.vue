@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     addNewBid() {
-      this.plain
+      this.secured
         .post("/bids", {
           bid: {
             project: this.project,
