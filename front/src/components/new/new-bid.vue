@@ -1,7 +1,7 @@
 <template>
   <div class="outterContainer">
     <sideBar v-if="loggedIn" />
-    <div class="innerContainer">
+    <div v-if="!bidId" class="innerContainer">
       <mainHeading title="New Bid" />
       <form @submit.prevent="addNewBid">
         <div v-if="error">{{ error }}</div>
@@ -24,40 +24,51 @@
             />
           </div>
         </div>
+        <label for="clientId" class="form-label">Clients</label>
+        <select
+          class="form-select mb-3"
+          aria-label="Default select example"
+          v-model="clientId"
+        >
+          <option
+            v-for="client in clients"
+            :key="client.name"
+            :value="client.id"
+          >
+            {{ client.name }} : {{ client.studio }}
+          </option>
+        </select>
         <button type="submit" class="btn btn-secondary">Create</button>
       </form>
     </div>
+    <editBid v-if="bidId" :new-bid-id="this.bidId" />
   </div>
 </template>
 
 <script>
 import sideBar from "@/components/ui/side-bar.vue";
 import mainHeading from "@/components/ui/main-heading.vue";
+import editBid from "@/components/new/edit-bid.vue";
 
 export default {
   components: {
     mainHeading,
     sideBar,
+    editBid,
   },
   data() {
     return {
       project: "",
       fps: "",
       resolution: "",
+      clientId: "",
+      bidId: "",
       user: {},
+      clients: {},
     };
   },
   created() {
-    if (!localStorage.signedIn == 1) {
-      this.$router.replace("/");
-    } else {
-      this.secured
-        .get("/users/10")
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => console.log(error, "Something went wrong"));
-    }
+    this.getClientList();
   },
   methods: {
     addNewBid() {
@@ -67,15 +78,20 @@ export default {
             project: this.project,
             fps: this.fps,
             resolution: this.resolution,
-            user_id: 1,
-            client_is: 4,
+            client_id: this.clientId,
           },
         })
         .then((response) => {
           console.log(response.data);
-          this.$router.replace("/bids");
+          this.bidId = response.data.id;
         })
         .catch((error) => console.log(error, "Cannot create bid"));
+    },
+    getClientList() {
+      this.secured.get("/clients").then((response) => {
+        this.clients = response.data;
+        console.log(this.clients);
+      });
     },
   },
   computed: {

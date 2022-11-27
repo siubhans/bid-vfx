@@ -49,6 +49,9 @@ export default {
   created() {
     this.printList();
   },
+  updated() {
+    this.printList();
+  },
   methods: {
     deleteClient(client) {
       this.secured
