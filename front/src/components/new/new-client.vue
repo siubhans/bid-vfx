@@ -58,7 +58,6 @@ export default {
             name: this.name,
             studio: this.studio,
             producer: this.producer,
-            user_id: 1,
           },
         })
         .then((response) => {

@@ -2,14 +2,12 @@ module Api
   module V1
     class BidsController < ApplicationController
       #make sure user is signed in before any methods here
-      # before_action :authorize_access_request!
-      # before_action :set_bid, only: %i[ show update destroy ]
+      before_action :authorize_access_request!
+      before_action :set_bid, only: %i[ show update destroy ]
 
       # GET /bids
-      def index
-        #scoped to current user
-        @bids = current_user.bids.all
-
+       def index
+        @bids =  current_user.bids
         render json: @bids
       end
 
@@ -20,9 +18,9 @@ module Api
 
       # POST /bids
       def create
-        bid = current_user.bids.build(bid_params)
+        @client = current_user.bids.new(bid_params)
 
-        if bid.save
+        if @bid.save
           render json: @bid, status: :created, location: @bid
         else
           render json: @bid.errors, status: :unprocessable_entity

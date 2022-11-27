@@ -3,7 +3,7 @@
     <sideBar v-if="loggedIn" />
     <mainHeading title="Bids" />
     <ul>
-      <li v-for="item in bids" :key="item.email"></li>
+      <li v-for="bid in bids" :key="bid.project">{{ bid.project }}</li>
     </ul>
   </div>
 </template>

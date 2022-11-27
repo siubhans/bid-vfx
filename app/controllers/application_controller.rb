@@ -4,6 +4,12 @@ class ApplicationController < ActionController::API
 
   private
 
+    # def ensure_current_user
+    #   if current_user.nil?
+    #     redirect_to path
+    #   end
+    # end
+
     def current_user
       @current_user ||= User.find(payload['user_id'])
     end
