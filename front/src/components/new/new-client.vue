@@ -49,7 +49,9 @@ export default {
       studio: "",
     };
   },
+
   created() {},
+
   methods: {
     addNewClient() {
       this.secured
