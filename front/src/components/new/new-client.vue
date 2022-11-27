@@ -49,17 +49,17 @@ export default {
       studio: "",
     };
   },
-  created() {
-  },
+
+  created() {},
+
   methods: {
     addNewClient() {
-      this.plain
+      this.secured
         .post("/clients", {
           client: {
             name: this.name,
             studio: this.studio,
             producer: this.producer,
-            user_id: 1,
           },
         })
         .then((response) => {

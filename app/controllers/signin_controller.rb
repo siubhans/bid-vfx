@@ -1,5 +1,5 @@
 class SigninController < ApplicationController
-  # before_action :authorize_access_request!, only: [:destroy]
+  before_action :authorize_access_request!, only: [:destroy]
 
   def create
     user = User.find_by!(email: params[:email])
@@ -19,6 +19,7 @@ class SigninController < ApplicationController
   end
   # GET /USERS/1
   def show
+    @user = User.find(email: params[:email])
     render json: @user
   end
 

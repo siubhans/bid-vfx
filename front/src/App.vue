@@ -24,4 +24,13 @@ export default {
   background-color: var(--mainNavy);
   color: var(--white);
 }
+
+.outterContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.innerContainer {
+  width: 50%;
+}
 </style>

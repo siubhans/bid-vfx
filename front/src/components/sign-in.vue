@@ -4,7 +4,7 @@
     <div class="container">
       <h3>Sign In</h3>
       <form @submit.prevent="signin">
-        <div v-if="error">{{ error }}</div>
+        <div v-if="error" class="error">{{ error }}</div>
         <div class="mb-3">
           <label for="email" class="form-label">Email address</label>
           <input
@@ -41,6 +41,7 @@ export default {
       email: "",
       password: "",
       error: "",
+      id: "",
     };
   },
   created() {
@@ -91,3 +92,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.error {
+  color: var(--alertRed);
+}
+</style>

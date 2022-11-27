@@ -2,9 +2,93 @@
   <div>
     <sideBar v-if="loggedIn" />
     <mainHeading title="Bids" />
-    <ul>
-      <li v-for="item in bids" :key="item.email"></li>
-    </ul>
+    <table
+      class="table table-hover table-striped"
+      :class="darkMode ? 'table-dark' : 'table-light'"
+    >
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Project</th>
+          <th scope="col">fps</th>
+          <th scope="col">Resolution</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col">
+            <button
+              class="btn"
+              :class="darkMode ? 'btn-outline-light' : 'btn-outline-dark'"
+              @click="darkModeToggle"
+            >
+              Switch Dark Mode {{ onOff }}
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(bid, index) in bids" :key="bid.project">
+          <th scope="row">
+            {{ index + 1 }}
+          </th>
+          <td>
+            <input
+              v-if="editing === index"
+              type="text"
+              v-model="bids[index].project"
+            />
+            <span v-else>{{ bid.project }}</span>
+          </td>
+          <td>
+            <input
+              v-if="editing === index"
+              type="text"
+              v-model="bids[index].fps"
+            />
+            <span v-else>{{ bid.fps }}</span>
+          </td>
+          <td>
+            <input
+              v-if="editing === index"
+              type="text"
+              v-model="bids[index].resolution"
+            />
+            <span v-else>{{ bid.resolution }}</span>
+          </td>
+          <td>
+            <button
+              class="btn"
+              :class="darkMode ? 'btn-light' : 'btn-dark'"
+              @click="deleteBid(bid.id)"
+            >
+              Delete
+            </button>
+          </td>
+          <td>
+            <button
+              class="btn"
+              :class="darkMode ? 'btn-light' : 'btn-dark'"
+              v-if="editing === index"
+              @click="updateBid(bid.id, index)"
+            >
+              Update
+            </button>
+            <button
+              class="btn"
+              :class="darkMode ? 'btn-light' : 'btn-dark'"
+              v-else
+              @click="editBid(index)"
+            >
+              Edit
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-success" @click="buildBid(bid.id)">
+              Build Bid
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -20,6 +104,9 @@ export default {
   data() {
     return {
       bids: [],
+      darkMode: false,
+      onOff: "on",
+      editing: false,
     };
   },
   created() {
@@ -27,6 +114,30 @@ export default {
     this.printList();
   },
   methods: {
+    deleteBid(bid) {
+      this.secured
+        .delete(`/bids/${bid}`)
+        .then(this.printList())
+        .catch((error) => console.log(error, "Cannot delete record"));
+    },
+    editBid(index) {
+      this.editing = index;
+    },
+    updateBid(bid, index) {
+      this.secured
+        .patch(`/bids/${bid}`, {
+          bid: {
+            project: this.bids[index].project,
+            fps: this.bids[index].fps,
+            resolution: this.bids[index].resolution,
+          },
+        })
+        .then(() => {
+          this.editing = false;
+          this.printList();
+        })
+        .catch((error) => console.log(error, "Cannot update record"));
+    },
     getList() {
       this.plain.get("/bids").then((response) => {
         console.log(response.data);
@@ -36,6 +147,10 @@ export default {
       this.plain.get("/bids").then((response) => {
         this.bids = response.data;
       });
+    },
+    darkModeToggle() {
+      this.darkMode = !this.darkMode;
+      this.onOff = this.darkMode ? "off" : "on";
     },
   },
   computed: {

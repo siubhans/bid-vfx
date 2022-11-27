@@ -14,10 +14,15 @@ Rails.application.routes.draw do
   post "clients", to: "api/v1/clients#create"
   patch "clients/:id", to: "api/v1/clients#update"
   delete "clients/:id", to: "api/v1/clients#destroy"
+  get "bids", to: "api/v1/bids#index"
+  get "userClients", to: "api/v1/clients#user"
+  get "bids/:id", to: "api/v1/bids#show"
+  post "bids", to: "api/v1/bids#create"
+  patch "bids/:id", to: "api/v1/bids#update"
+  delete "bids/:id", to: "api/v1/bids#destroy"
   post "signin", to: "signin#create"
-  get "users/:id", to: "signin#show"
   post "refresh", controller: :refresh, action: :create 
-  # post "signin", controller: :signin, action: :create
+  post "users", to: "signin#show"
   post "signup", controller: :signup, action: :create
   delete "signin", controller: :signin, action: :destroy
   

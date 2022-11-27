@@ -1,6 +1,8 @@
 <template>
   <div>
-    <button v-if="loggedIn" @click="logout()">Logout</button>
+    <button class="btn btn-secondary" v-if="loggedIn" @click="logout()">
+      Logout
+    </button>
     <VueSidebarMenuAkahon
       menuTitle="Bid VFX"
       :isSearch="false"
@@ -26,7 +28,7 @@ export default {
     return {
       sideMenuItems: [
         {
-          link: "/newbid",
+          link: "/newBid",
           name: "new bid",
           tooltip: "new bid",
           icon: "bx-plus",
