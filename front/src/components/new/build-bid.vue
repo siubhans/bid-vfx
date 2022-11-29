@@ -44,29 +44,35 @@
           <th scope="row">
             {{ index + 1 }}
           </th>
-          <td>
+          <td class="shotCellSmall">
             <input
               v-if="editing === index"
               type="text"
               v-model="shots[index].name"
             />
-            <span v-else>{{ shot.name }}</span>
+            <div v-else :title="shot.name">
+              {{ shot.name }}
+            </div>
           </td>
-          <td>
-            <input
+          <td class="shotCellLarge">
+            <textarea
               v-if="editing === index"
               type="text"
               v-model="shots[index].description"
             />
-            <span v-else>{{ shot.description }}</span>
+            <div v-else :title="shot.description">
+              {{ shot.description }}
+            </div>
           </td>
-          <td>
-            <input
+          <td class="shotCellLarge">
+            <textarea
               v-if="editing === index"
               type="text"
               v-model="shots[index].methodology"
             />
-            <span v-else>{{ shot.methodology }}</span>
+            <div v-else :title="shot.methodology">
+              {{ shot.methodology }}
+            </div>
           </td>
           <td>
             <button
@@ -196,4 +202,15 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.shotCellSmall {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 15px;
+}
+.shotCellLarge {
+  overflow: hidden;
+  font-size: 10px;
+}
+</style>
