@@ -1,7 +1,18 @@
 <template>
   <div>
     <sideBar v-if="loggedIn" />
-    <mainHeading title="Bids" />
+    <form v-if="showNewForm" @submit.prevent="addNewShot">
+      <div class="form-group">
+        <label for="newName">Enter Shot Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="newName"
+          v-model="newName"
+        />
+      </div>
+      <button type="submit" class="btn btn-success">Create Shot</button>
+    </form>
     <table
       class="table table-hover table-striped"
       :class="darkMode ? 'table-dark' : 'table-light'"
@@ -9,11 +20,14 @@
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Project</th>
-          <th scope="col">fps</th>
-          <th scope="col">Resolution</th>
-          <th scope="col"></th>
-          <th scope="col"></th>
+          <th scope="col">Shot Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Methodology</th>
+          <th scope="col">
+            <button class="btn btn-success" @click="showNewShot">
+              Add New Shot
+            </button>
+          </th>
           <th scope="col">
             <button
               class="btn"
@@ -26,7 +40,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(bid, index) in bids" :key="bid.project">
+        <tr v-for="(shot, index) in shots" :key="shot">
           <th scope="row">
             {{ index + 1 }}
           </th>
@@ -34,31 +48,31 @@
             <input
               v-if="editing === index"
               type="text"
-              v-model="bids[index].project"
+              v-model="shots[index].name"
             />
-            <span v-else>{{ bid.project }}</span>
+            <span v-else>{{ shot.name }}</span>
           </td>
           <td>
             <input
               v-if="editing === index"
               type="text"
-              v-model="bids[index].fps"
+              v-model="shots[index].description"
             />
-            <span v-else>{{ bid.fps }}</span>
+            <span v-else>{{ shot.description }}</span>
           </td>
           <td>
             <input
               v-if="editing === index"
               type="text"
-              v-model="bids[index].resolution"
+              v-model="shots[index].methodology"
             />
-            <span v-else>{{ bid.resolution }}</span>
+            <span v-else>{{ shot.methodology }}</span>
           </td>
           <td>
             <button
               class="btn"
               :class="darkMode ? 'btn-light' : 'btn-dark'"
-              @click="deleteBid(bid.id)"
+              @click="deleteShot(shot.id)"
             >
               Delete
             </button>
@@ -68,7 +82,7 @@
               class="btn"
               :class="darkMode ? 'btn-light' : 'btn-dark'"
               v-if="editing === index"
-              @click="updateBid(bid.id, index)"
+              @click="updateShot(shot.id, index)"
             >
               Update
             </button>
@@ -76,14 +90,9 @@
               class="btn"
               :class="darkMode ? 'btn-light' : 'btn-dark'"
               v-else
-              @click="editBid(index)"
+              @click="editShot(index)"
             >
               Edit
-            </button>
-          </td>
-          <td>
-            <button class="btn btn-success" @click="buildBid(bid.id)">
-              Build Bid
             </button>
           </td>
         </tr>
@@ -94,42 +103,62 @@
 
 <script>
 import sideBar from "@/components/ui/side-bar.vue";
-import mainHeading from "@/components/ui/main-heading.vue";
 
 export default {
   components: {
-    mainHeading,
     sideBar,
   },
   data() {
     return {
-      bids: [],
+      shots: [],
       darkMode: false,
       onOff: "on",
       editing: false,
+      newName: "",
+      showNewForm: false,
     };
   },
   created() {
-    this.getList();
+    // this.getList();
     this.printList();
   },
   methods: {
-    deleteBid(bid) {
+    showNewShot() {
+      this.showNewForm = !this.showNewForm;
+    },
+    addNewShot() {
       this.secured
-        .delete(`/bids/${bid}`)
-        .then(this.printList())
+        .post("/shots", {
+          shot: {
+            name: this.newName,
+            bid_id: localStorage.currentBid,
+          },
+        })
+        .then(() => {
+          this.printList();
+          this.newName = "";
+          this.showNewForm = false;
+        })
+        .catch((error) => console.log(error, "Cannot create client"));
+    },
+    deleteShot(shot) {
+      this.secured
+        .delete(`/shots/${shot}`)
+        .then(() => {
+          this.printList();
+        })
         .catch((error) => console.log(error, "Cannot delete record"));
     },
-    editBid(index) {
+    editShot(index) {
       this.editing = index;
     },
-    updateBid(bid, index) {
+    updateShot(shot, index) {
       this.secured
-        .patch(`/bids/${bid}`, {
-          bid: {
-            project: this.bids[index].project,
-            fps: this.bids[index].fps,
-            resolution: this.bids[index].resolution,
+        .patch(`shots/${shot}`, {
+          shot: {
+            name: this.shots[index].name,
+            description: this.shots[index].description,
+            methodology: this.shots[index].methodology,
           },
         })
         .then(() => {
@@ -138,23 +167,25 @@ export default {
         })
         .catch((error) => console.log(error, "Cannot update record"));
     },
-    getList() {
-      this.plain.get("/bids").then((response) => {
-        console.log(response.data);
-      });
-    },
+    // getList() {
+    //   this.plain.get("/shots").then((response) => {
+    //     console.log("here", response.data);
+    //   });
+    // },
     printList() {
-      this.plain.get("/bids").then((response) => {
-        this.bids = response.data;
-      });
+      this.plain
+        .get("/shots", {
+          params: {
+            bid_id: localStorage.currentBid,
+          },
+        })
+        .then((response) => {
+          this.shots = response.data;
+        });
     },
     darkModeToggle() {
       this.darkMode = !this.darkMode;
       this.onOff = this.darkMode ? "off" : "on";
-    },
-    buildBid(bid) {
-      localStorage.currentBid = bid;
-      this.$router.replace("/buildBid");
     },
   },
   computed: {

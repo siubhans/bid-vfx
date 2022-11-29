@@ -41,20 +41,17 @@
         <button type="submit" class="btn btn-secondary">Create</button>
       </form>
     </div>
-    <editBid v-if="bidId" :new-bid-id="this.bidId" />
   </div>
 </template>
 
 <script>
 import sideBar from "@/components/ui/side-bar.vue";
 import mainHeading from "@/components/ui/main-heading.vue";
-import editBid from "@/components/new/edit-bid.vue";
 
 export default {
   components: {
     mainHeading,
     sideBar,
-    editBid,
   },
   data() {
     return {
