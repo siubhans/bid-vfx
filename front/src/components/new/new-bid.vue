@@ -79,8 +79,9 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response.data);
           this.bidId = response.data.id;
+          localStorage.currentBid = this.bidId;
+          this.$router.replace("/buildBid");
         })
         .catch((error) => console.log(error, "Cannot create bid"));
     },
