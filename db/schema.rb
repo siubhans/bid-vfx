@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_21_204839) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_29_184030) do
   create_table "bids", force: :cascade do |t|
     t.string "project"
     t.integer "fps"
@@ -33,6 +33,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_204839) do
     t.index ["user_id"], name: "index_clients_on_user_id"
   end
 
+  create_table "shots", force: :cascade do |t|
+    t.string "name"
+    t.text "image"
+    t.string "methodology"
+    t.string "scene"
+    t.string "description"
+    t.string "notes"
+    t.string "vfx_work"
+    t.integer "days"
+    t.integer "total"
+    t.integer "bid_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bid_id"], name: "index_shots_on_bid_id"
+  end
+
   create_table "studios", force: :cascade do |t|
     t.string "name"
     t.string "logo"
@@ -53,5 +69,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_204839) do
   add_foreign_key "bids", "clients"
   add_foreign_key "bids", "users"
   add_foreign_key "clients", "users"
+  add_foreign_key "shots", "bids"
   add_foreign_key "studios", "users"
 end
