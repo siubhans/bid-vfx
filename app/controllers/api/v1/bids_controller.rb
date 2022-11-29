@@ -21,7 +21,7 @@ module Api
         @bid = current_user.bids.new(bid_params)
 
           if @bid.save
-            render json: @bid, status: :created, location: @bid
+            render json: @bid, status: :created
           else
             render json: @bid.errors, status: :unprocessable_entity
           end

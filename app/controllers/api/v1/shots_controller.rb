@@ -1,9 +1,12 @@
-class ShotsController < ApplicationController
-  before_action :set_shot, only: %i[ show update destroy ]
+module Api
+  module V1
+    class ShotsController < ApplicationController
+    before_action :authorize_access_request!
+    before_action :set_shot, only: %i[ show update destroy ]
 
   # GET /shots
   def index
-    @shots = Shot.all
+    @shots = Shot.where(bid_id: params[:bid_id])
 
     render json: @shots
   end
@@ -18,7 +21,7 @@ class ShotsController < ApplicationController
     @shot = Shot.new(shot_params)
 
     if @shot.save
-      render json: @shot, status: :created, location: @shot
+      render json: @shot, status: :created
     else
       render json: @shot.errors, status: :unprocessable_entity
     end
@@ -48,4 +51,6 @@ class ShotsController < ApplicationController
     def shot_params
       params.require(:shot).permit(:name, :image, :methodology, :scene, :description, :notes, :vfx_work, :days, :total, :bid_id)
     end
+  end
+ end
 end

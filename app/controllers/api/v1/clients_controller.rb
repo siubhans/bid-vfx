@@ -20,7 +20,7 @@ module Api
         @client = current_user.clients.new(client_params)
 
           if @client.save
-            render json: @client, status: :created, location: @client
+            render json: @client, status: :created
           else
             render json: @client.errors, status: :unprocessable_entity
           end

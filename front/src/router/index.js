@@ -7,6 +7,7 @@ import clientView from "@/components/views/client-view.vue";
 import studioView from "@/components/views/studio-view.vue";
 import newClient from "@/components/new/new-client.vue";
 import newBid from "@/components/new/new-bid.vue";
+import buildBid from "@/components/new/build-bid.vue";
 
 const routes = [
   {
@@ -48,6 +49,11 @@ const routes = [
     path: "/newBid",
     name: "newBid",
     component: newBid,
+  },
+  {
+    path: "/buildBid",
+    name: "buildBid",
+    component: buildBid,
   },
 ];
 
