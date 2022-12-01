@@ -40,6 +40,7 @@
           </td>
           <td>
             <input
+              class="input-group mb-3"
               v-if="editing === index"
               type="text"
               v-model="bids[index].fps"
@@ -48,6 +49,7 @@
           </td>
           <td>
             <input
+              class="input-group mb-3"
               v-if="editing === index"
               type="text"
               v-model="bids[index].resolution"
@@ -107,6 +109,7 @@ export default {
       darkMode: false,
       onOff: "on",
       editing: false,
+      currentUser: [],
     };
   },
   created() {
@@ -156,10 +159,18 @@ export default {
       localStorage.currentBid = bid;
       this.$router.replace("/buildBid");
     },
+    getCurrentUser() {
+      this.plain
+        .get(`/current`)
+        .then((response) => {
+          this.currentUser = response.data;
+        })
+        .catch((error) => console.log(error, "Cannot get user"));
+    },
   },
   computed: {
     loggedIn() {
-      return localStorage.signedIn == 1;
+      return this.currentUser;
     },
   },
 };
