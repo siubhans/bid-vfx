@@ -30,10 +30,14 @@ Rails.application.routes.draw do
   post "bids", to: "api/v1/bids#create"
   patch "bids/:id", to: "api/v1/bids#update"
   delete "bids/:id", to: "api/v1/bids#destroy"
+
+  get "studios", to: "api/v1/studios#index"
+  patch "studios/:id", to: "api/v1/studios#update"
   
   post "signin", to: "signin#create"
   post "refresh", controller: :refresh, action: :create 
   post "users", to: "signin#show"
+  get "current", to: "signin#current"
   post "signup", controller: :signup, action: :create
   delete "signin", controller: :signin, action: :destroy
   
