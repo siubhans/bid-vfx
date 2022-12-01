@@ -14,6 +14,7 @@ gem "puma", "~> 5.0"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
+gem 'multi_json', '~> 1.11', '>= 1.11.2'
 
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
@@ -31,7 +32,7 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.2"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors', :require => 'rack/cors'
@@ -47,3 +48,7 @@ group :development do
   # gem "spring"
 end
 
+
+gem "jsonapi_serializer", "~> 0.1.1"
+
+gem "active_model_serializers", "~> 0.10.13"

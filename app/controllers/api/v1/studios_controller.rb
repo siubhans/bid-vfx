@@ -7,7 +7,8 @@ module Api
       # GET /studios
       def index
         @studios =  current_user.studios
-        render json: @studios
+        render :json => @studios, each_serializer: StudioSerializer
+        # render json: StudioSerializer.new(@studios).serializable_hash[:data][:attributes]
       end
 
       # # GET /studios/1
@@ -46,7 +47,7 @@ module Api
         end
 
         def studio_params
-          params.require(:studio).permit(:name, :logo)
+          params.require(:studio).permit(:name, :image)
         end
     end
   end
