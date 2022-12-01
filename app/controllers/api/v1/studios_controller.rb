@@ -15,16 +15,16 @@ module Api
       #   render json: @studio
       # end
 
-      # # POST /studios
-      # def create
-      #   @studio = current_user.studios.new(studio_params)
+      # POST /studios
+      def create
+        @studio = current_user.studios.new(studio_params)
 
-      #     if @studio.save
-      #       render json: @studio, status: :created
-      #     else
-      #       render json: @studio.errors, status: :unprocessable_entity
-      #     end
-      # end
+          if @studio.save
+            render json: @studio, status: :created
+          else
+            render json: @studio.errors, status: :unprocessable_entity
+          end
+      end
 
       # PATCH/PUT /studios/1
       def update

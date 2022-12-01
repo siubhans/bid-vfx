@@ -1,5 +1,6 @@
 class SigninController < ApplicationController
-  before_action :authorize_access_request!, only: [:destroy, :current]
+  before_action :authorize_access_request!, only: [:destroy, :current, :update]
+  before_action :set_user, only: %i[ update ]
 
   def create
     user = User.find_by!(email: params[:email])
@@ -28,6 +29,15 @@ class SigninController < ApplicationController
     @user = current_user
     render json: @user
   end
+  
+ # POST /USERS/1
+  def update
+    if @user.update(user_params)
+      render json: @user
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
+  end
 
   def destroy
     @session = JWTSessions::Session.new(refresh_by_access_allowed: true, payload: payload)
@@ -39,6 +49,14 @@ class SigninController < ApplicationController
 
   def not_found
     render json: { error: "Cannot find email/password combination" }, status: :not_found
+  end
+
+  def set_user
+    @user = current_user
+  end
+  # Only allow a list of trusted parameters through.
+  def user_params
+    params.require(:user).permit(:id, :studio)
   end
 end
 
