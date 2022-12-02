@@ -1,3 +1,5 @@
+require "active_model_serializers"
+
 module Api
   module V1
     class StudiosController < ApplicationController
@@ -7,7 +9,8 @@ module Api
       # GET /studios
       def index
         @studios =  current_user.studios
-        render json: @studios
+        render :json => @studios, each_serializer: StudioSerializer
+        # render json: StudioSerializer.new(@studios).serializable_hash[:data][:attributes]
       end
 
       # # GET /studios/1
@@ -27,11 +30,25 @@ module Api
       end
 
       # PATCH/PUT /studios/1
+      # def update
+      #   if @studio.update(studio_params)
+      #     render json: @studio
+      #   else
+      #     render json: @studio.errors, status: :unprocessable_entity
+      #   end
+      # end
+
+      # PATCH/PUT /studios/1
       def update
-        if @studio.update(studio_params)
-          render json: @studio
-        else
-          render json: @studio.errors, status: :unprocessable_entity
+        if params[:file]
+          # The data is a file upload coming from <input type="file" />
+          @studio.image.attach(params[:file])
+          # Generate a url for easy display on the front end 
+          logo = url_for(@studio.image)
+        end
+          # Now save that url in the profile
+        if @studio.update(logo: logo)
+          render json: @studio, status: :ok
         end
       end
 
@@ -46,7 +63,7 @@ module Api
         end
 
         def studio_params
-          params.require(:studio).permit(:name, :logo)
+          params.require(:studio).permit(:name, :logo, :image)
         end
     end
   end

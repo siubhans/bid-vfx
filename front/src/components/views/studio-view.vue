@@ -1,46 +1,56 @@
 <template>
-  <div>
-    <sideBar v-if="loggedIn" />
-    <mainHeading v-if="registeredStudio" :title="currentUser.studio" />
-    <form v-if="registeredStudio" @submit.prevent="confirmStudio">
-      <input type="hidden" v-model="registeredStudio" />
-      <button type="submit" class="btn btn-success">
-        Click here to confirm this studio name
+  <div class="outterContainer">
+    <div class="innerContainer">
+      <sideBar v-if="loggedIn" />
+      <mainHeading v-if="registeredStudio" :title="currentUser.studio" />
+      <form v-if="registeredStudio" @submit.prevent="confirmStudio">
+        <input type="hidden" v-model="registeredStudio" />
+        <button type="submit" class="btn btn-success">
+          Click here to confirm this studio name
+        </button>
+      </form>
+      <br />
+      <button
+        v-if="registeredStudio"
+        @click="createStudioDetailsShow"
+        class="btn btn-light"
+      >
+        Change Studio Details
       </button>
-    </form>
-    <br />
-    <button
-      v-if="registeredStudio"
-      @click="createStudioDetailsShow"
-      class="btn btn-light"
-    >
-      Change Studio Details
-    </button>
-    <form v-if="firstTimeStudio" @submit.prevent="createStudioDetails">
-      <input class="input-group mb-3" type="text" v-model="studio.name" />
-      <button type="submit" class="btn btn-success">
-        Confirm Studio Details
-      </button>
-    </form>
-
-    <input
-      v-if="editing"
-      class="input-group mb-3"
-      type="text"
-      v-model="studio.name"
-    />
-    <mainHeading v-else :title="studio.name" />
-    <div class="input-group input-group-sm mb-3">
-      <input v-if="editing" class="form-control" type="file" />
-    </div>
-    <div v-if="editing">
-      <button class="btn btn-light" @click="updateStudio(studio.id)">
-        Update
-      </button>
-      <button class="btn btn-light" @click="editing = false">Cancel</button>
-    </div>
-    <div v-else>
-      <button class="btn btn-light" @click="editStudio(index)">Edit</button>
+      <form v-if="firstTimeStudio" @submit.prevent="createStudioDetails">
+        <input class="input-group mb-3" type="text" v-model="studio.name" />
+        <button type="submit" class="btn btn-success">
+          Confirm Studio Details
+        </button>
+      </form>
+      <form @submit.prevent="sendFile" enctype="multipart/form-data">
+        <input
+          v-if="editing"
+          class="input-group mb-3"
+          type="text"
+          v-model="studio.name"
+        />
+        <mainHeading v-else :title="studio.name" />
+        <div class="input-group input-group-sm mb-3">
+          <input
+            v-if="editing"
+            class="form-control"
+            type="file"
+            ref="file"
+            @change="selectFile"
+          />
+        </div>
+        <img class="image" :src="studio.logo" alt="image for studio" />
+        <div v-if="editing">
+          <br />
+          <button type="submit" class="btn btn-light">Update</button>
+          <button class="btn btn-light" @click="editing = false">Cancel</button>
+        </div>
+        <div v-else>
+          <br />
+          <button class="btn btn-light" @click="editStudio()">Edit</button>
+        </div>
+      </form>
     </div>
   </div>
 </template>
@@ -62,6 +72,8 @@ export default {
       registeredStudio: "",
       currentUser: {},
       firstTimeStudio: false,
+      file: [],
+      studioImage: "",
     };
   },
   created() {
@@ -76,38 +88,41 @@ export default {
     editStudio() {
       this.editing = true;
     },
-    updateStudio() {
-      this.secured
-        .patch(`/studios/${this.studio.id}`, {
-          studio: {
-            name: this.studio.name,
-            logo: this.studio.logo,
-          },
-        })
-        .then(() => {
-          this.editing = false;
-          this.printList();
-        })
-        .catch((error) => console.log(error, "Cannot update record"));
-    },
+    // updateStudio() {
+    //   this.secured
+    //     .patch(`/studios/${this.studio.id}`, {
+    //       studio: {
+    //         name: this.studio.name,
+    //         image: this.studio.image,
+    //       },
+    //     })
+    //     .then(() => {
+    //       this.editing = false;
+    //       this.printList();
+    //     })
+    //     .catch((error) => console.log(error, "Cannot update record"));
+    // },
     printList() {
-      this.secured.get("/studios").then((response) => {
-        this.studio = response.data[0];
-      });
+      this.secured
+        .get("/studios")
+        .then((response) => {
+          this.studio = response.data[0];
+          console.log(response.data[0]);
+        })
+        .catch((error) => console.log(error, "Cannot get studio"));
     },
     getCurrentUser() {
       this.plain
         .get(`/current`)
         .then((response) => {
           this.currentUser = response.data;
-          console.log(this.currentUser);
+          console.log(response.data);
           this.checkForStudio();
         })
         .catch((error) => console.log(error, "Cannot get user"));
     },
     checkForStudio() {
       this.registeredStudio = this.currentUser.studio;
-      console.log(this.registeredStudio);
     },
     confirmStudio() {
       this.secured
@@ -152,6 +167,23 @@ export default {
         })
         .catch((error) => console.log(error, "Cannot update record"));
     },
+    selectFile() {
+      this.file = this.$refs.file.files[0];
+    },
+    sendFile() {
+      let formData = new FormData();
+      formData.append("file", this.file);
+      // formData.append("studio[name]", this.studio.name);
+
+      this.secured
+        .patch(`/studios/${this.studio.id}`, formData)
+        .then((response) => console.log(response.data))
+        .then(() => {
+          this.editing = false;
+          this.printList();
+        })
+        .catch((error) => console.log(error, "Cannot process studio update"));
+    },
   },
   computed: {
     loggedIn() {
@@ -161,4 +193,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.image {
+  width: 200px;
+  border-radius: 10px;
+  border: 2px solid white;
+}
+</style>
