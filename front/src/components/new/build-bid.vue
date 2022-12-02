@@ -21,8 +21,13 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Shot Name</th>
+          <th scope="col">Scene</th>
           <th scope="col">Description</th>
+          <th scope="col">VFX Work</th>
           <th scope="col">Methodology</th>
+          <th scope="col">Notes</th>
+          <th scope="col">Days</th>
+          <th scope="col">Total</th>
           <th scope="col">
             <button class="btn btn-success" @click="showNewShot">
               Add New Shot
@@ -34,7 +39,7 @@
               :class="darkMode ? 'btn-outline-light' : 'btn-outline-dark'"
               @click="darkModeToggle"
             >
-              Switch Dark Mode {{ onOff }}
+              {{ onOff }}
             </button>
           </th>
         </tr>
@@ -54,6 +59,16 @@
               {{ shot.name }}
             </div>
           </td>
+          <td class="shotCellSmall">
+            <input
+              v-if="editing === index"
+              type="text"
+              v-model="shots[index].scene"
+            />
+            <div v-else :title="shot.scene">
+              {{ shot.scene }}
+            </div>
+          </td>
           <td class="shotCellLarge">
             <textarea
               v-if="editing === index"
@@ -68,10 +83,50 @@
             <textarea
               v-if="editing === index"
               type="text"
+              v-model="shots[index].vfx_work"
+            />
+            <div v-else :title="shot.vfx_work">
+              {{ shot.vfx_work }}
+            </div>
+          </td>
+          <td class="shotCellLarge">
+            <textarea
+              v-if="editing === index"
+              type="text"
               v-model="shots[index].methodology"
             />
             <div v-else :title="shot.methodology">
               {{ shot.methodology }}
+            </div>
+          </td>
+          <td class="shotCellLarge">
+            <textarea
+              v-if="editing === index"
+              type="text"
+              v-model="shots[index].notes"
+            />
+            <div v-else :title="shot.notes">
+              {{ shot.notes }}
+            </div>
+          </td>
+          <td class="shotCellSmall">
+            <input
+              v-if="editing === index"
+              type="number"
+              v-model="shots[index].days"
+            />
+            <div v-else :title="shot.days">
+              {{ shot.days }}
+            </div>
+          </td>
+          <td class="shotCellSmall">
+            <input
+              v-if="editing === index"
+              type="text"
+              v-model="shots[index].total"
+            />
+            <div v-else :title="shot.total">
+              {{ shot.total }}
             </div>
           </td>
           <td>
@@ -118,7 +173,7 @@ export default {
     return {
       shots: [],
       darkMode: false,
-      onOff: "on",
+      onOff: "Dark Mode",
       editing: false,
       newName: "",
       showNewForm: false,
@@ -165,6 +220,11 @@ export default {
             name: this.shots[index].name,
             description: this.shots[index].description,
             methodology: this.shots[index].methodology,
+            scene: this.shots[index].scene,
+            vfx_work: this.shots[index].vfx_work,
+            notes: this.shots[index].notes,
+            days: this.shots[index].days,
+            total: this.shots[index].total,
           },
         })
         .then(() => {
@@ -191,7 +251,7 @@ export default {
     },
     darkModeToggle() {
       this.darkMode = !this.darkMode;
-      this.onOff = this.darkMode ? "off" : "on";
+      this.onOff = this.darkMode ? "Light Mode" : "Dark Mode";
     },
   },
   computed: {

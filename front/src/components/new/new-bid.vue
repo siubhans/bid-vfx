@@ -24,21 +24,28 @@
             />
           </div>
         </div>
-        <label for="clientId" class="form-label">Clients</label>
-        <select
-          class="form-select mb-3"
-          aria-label="Default select example"
-          v-model="clientId"
-        >
-          <option
-            v-for="client in clients"
-            :key="client.name"
-            :value="client.id"
+        <div v-if="clients.length">
+          <label for="clientId" class="form-label">Clients</label>
+          <select
+            class="form-select mb-3"
+            aria-label="Default select example"
+            v-model="clientId"
           >
-            {{ client.name }} : {{ client.studio }}
-          </option>
-        </select>
-        <button type="submit" class="btn btn-secondary">Create</button>
+            <option
+              v-for="client in clients"
+              :key="client.name"
+              :value="client.id"
+            >
+              {{ client.name }} : {{ client.studio }}
+            </option>
+          </select>
+          <button type="submit" class="btn btn-secondary">Create</button>
+        </div>
+        <div v-else>
+          <router-link to="/newClient"
+            >You have no clients - click here to add one</router-link
+          >
+        </div>
       </form>
     </div>
   </div>

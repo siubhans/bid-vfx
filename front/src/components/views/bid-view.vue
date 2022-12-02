@@ -91,6 +91,9 @@
         </tr>
       </tbody>
     </table>
+    <router-link v-if="!bids.length" to="/newBid">
+      You have no bids - click here to add one
+    </router-link>
   </div>
 </template>
 

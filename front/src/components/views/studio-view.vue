@@ -19,7 +19,7 @@
         @click="createStudioDetailsShow"
         class="btn btn-light"
       >
-        Change Studio Details
+        Change Studio Name
       </button>
       <form v-if="firstTimeStudio" @submit.prevent="createStudioDetails">
         <input
