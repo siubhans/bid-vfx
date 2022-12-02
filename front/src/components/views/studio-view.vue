@@ -3,22 +3,30 @@
     <div class="innerContainer">
       <sideBar v-if="loggedIn" />
       <mainHeading v-if="registeredStudio" :title="currentUser.studio" />
-      <form v-if="registeredStudio" @submit.prevent="confirmStudio">
+      <form
+        v-if="registeredStudio && !firstTimeStudio"
+        @submit.prevent="confirmStudio"
+      >
         <input type="hidden" v-model="registeredStudio" />
         <button type="submit" class="btn btn-success">
-          Click here to confirm this studio name
+          Click here to confirm <b>{{ registeredStudio }}</b> as your studio
+          name
         </button>
       </form>
       <br />
       <button
-        v-if="registeredStudio"
+        v-if="registeredStudio && !firstTimeStudio"
         @click="createStudioDetailsShow"
         class="btn btn-light"
       >
         Change Studio Details
       </button>
       <form v-if="firstTimeStudio" @submit.prevent="createStudioDetails">
-        <input class="input-group mb-3" type="text" v-model="studio.name" />
+        <input
+          class="input-group mb-3"
+          type="text"
+          v-model="registeredStudio"
+        />
         <button type="submit" class="btn btn-success">
           Confirm Studio Details
         </button>
@@ -40,7 +48,12 @@
             @change="selectFile"
           />
         </div>
-        <img class="image" :src="studio.logo" alt="image for studio" />
+        <img
+          v-if="studio.logo"
+          class="image"
+          :src="studio.logo"
+          alt="image for studio"
+        />
         <div v-if="editing">
           <br />
           <button type="submit" class="btn btn-light">Update</button>
@@ -48,7 +61,13 @@
         </div>
         <div v-else>
           <br />
-          <button class="btn btn-light" @click="editStudio()">Edit</button>
+          <button
+            v-if="!registeredStudio"
+            class="btn btn-light"
+            @click="editStudio()"
+          >
+            Update Logo
+          </button>
         </div>
       </form>
     </div>
@@ -88,26 +107,16 @@ export default {
     editStudio() {
       this.editing = true;
     },
-    // updateStudio() {
-    //   this.secured
-    //     .patch(`/studios/${this.studio.id}`, {
-    //       studio: {
-    //         name: this.studio.name,
-    //         image: this.studio.image,
-    //       },
-    //     })
-    //     .then(() => {
-    //       this.editing = false;
-    //       this.printList();
-    //     })
-    //     .catch((error) => console.log(error, "Cannot update record"));
-    // },
     printList() {
       this.secured
         .get("/studios")
         .then((response) => {
-          this.studio = response.data[0];
-          console.log(response.data[0]);
+          if (response.data[0]) {
+            this.studio = response.data[0];
+            console.log(response.data[0]);
+          } else {
+            this.studio = [];
+          }
         })
         .catch((error) => console.log(error, "Cannot get studio"));
     },
@@ -150,7 +159,10 @@ export default {
         })
         .then(() => {
           console.log("made studio");
-          this.printList();
+          this.deleteStudioFromUser();
+          this.registeredStudio = null;
+          this.firstTimeStudio = false;
+          this.$router.reload();
         })
         .catch((error) => console.log(error, "Cannot update record"));
     },
