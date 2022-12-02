@@ -20,6 +20,7 @@
       <thead>
         <tr>
           <th scope="col">#</th>
+          <th scope="col">Thumbnail</th>
           <th scope="col">Shot Name</th>
           <th scope="col">Scene</th>
           <th scope="col">Description</th>
@@ -28,6 +29,7 @@
           <th scope="col">Notes</th>
           <th scope="col">Days</th>
           <th scope="col">Total</th>
+          <th scope="col"></th>
           <th scope="col">
             <button class="btn btn-success" @click="showNewShot">
               Add New Shot
@@ -49,6 +51,9 @@
           <th scope="row">
             {{ index + 1 }}
           </th>
+          <td class="shotCellSmall">
+            <img class="image" :src="shot.image" alt="shot thumbnail" />
+          </td>
           <td class="shotCellSmall">
             <input
               v-if="editing === index"
@@ -156,6 +161,33 @@
               Edit
             </button>
           </td>
+          <td>
+            <div v-if="showImageInput === index">
+              <form
+                enctype="multipart/form-data"
+                @submit.prevent="sendImage(shot.id)"
+              >
+                <input
+                  class="form-control"
+                  type="file"
+                  ref="file"
+                  @change="selectFile"
+                />
+                <button type="submit" class="btn btn-light">
+                  Confirm Image
+                </button>
+              </form>
+            </div>
+            <div v-else>
+              <button
+                class="btn"
+                :class="darkMode ? 'btn-light' : 'btn-dark'"
+                @click="showImageForm(index)"
+              >
+                Upload Image
+              </button>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -177,6 +209,8 @@ export default {
       editing: false,
       newName: "",
       showNewForm: false,
+      showImageInput: false,
+      file: "",
     };
   },
   created() {
@@ -213,6 +247,9 @@ export default {
     editShot(index) {
       this.editing = index;
     },
+    showImageForm(index) {
+      this.showImageInput = index;
+    },
     updateShot(shot, index) {
       this.secured
         .patch(`shots/${shot}`, {
@@ -233,11 +270,6 @@ export default {
         })
         .catch((error) => console.log(error, "Cannot update record"));
     },
-    // getList() {
-    //   this.plain.get("/shots").then((response) => {
-    //     console.log("here", response.data);
-    //   });
-    // },
     printList() {
       this.plain
         .get("/shots", {
@@ -252,6 +284,23 @@ export default {
     darkModeToggle() {
       this.darkMode = !this.darkMode;
       this.onOff = this.darkMode ? "Light Mode" : "Dark Mode";
+    },
+    selectFile() {
+      this.file = this.$refs.file[0].files[0];
+    },
+    sendImage(shot) {
+      let formData = new FormData();
+      formData.append("file", this.file);
+
+      this.secured
+        .patch(`/shotsImage/${shot}`, formData)
+        .then((response) => console.log(response.data))
+        .then(() => {
+          this.editing = false;
+          this.printList();
+          this.showImageInput = false;
+        })
+        .catch((error) => console.log(error, "Cannot process studio update"));
     },
   },
   computed: {
@@ -272,5 +321,10 @@ export default {
 .shotCellLarge {
   overflow: hidden;
   font-size: 10px;
+}
+.image {
+  height: 100px;
+  border-radius: 10px;
+  border: 2px solid white;
 }
 </style>

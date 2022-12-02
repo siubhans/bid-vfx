@@ -92,7 +92,6 @@ export default {
       currentUser: {},
       firstTimeStudio: false,
       file: [],
-      studioImage: "",
     };
   },
   created() {

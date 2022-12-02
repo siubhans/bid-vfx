@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get "shots/:id", to: "api/v1/shots#show"
   post "shots", to: "api/v1/shots#create"
   patch "shots/:id", to: "api/v1/shots#update"
+  patch "shotsImage/:id", to: "api/v1/shots#addImage"
   delete "shots/:id", to: "api/v1/shots#destroy"
 
   get "bids", to: "api/v1/bids#index"
