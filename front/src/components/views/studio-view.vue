@@ -40,7 +40,7 @@
             @change="selectFile"
           />
         </div>
-        <img class="image" :src="studio.image_url" alt="image for studio" />
+        <img class="image" :src="studio.logo" alt="image for studio" />
         <div v-if="editing">
           <br />
           <button type="submit" class="btn btn-light">Update</button>
@@ -103,15 +103,20 @@ export default {
     //     .catch((error) => console.log(error, "Cannot update record"));
     // },
     printList() {
-      this.secured.get("/studios").then((response) => {
-        this.studio = response.data[0];
-      });
+      this.secured
+        .get("/studios")
+        .then((response) => {
+          this.studio = response.data[0];
+          console.log(response.data[0]);
+        })
+        .catch((error) => console.log(error, "Cannot get studio"));
     },
     getCurrentUser() {
       this.plain
         .get(`/current`)
         .then((response) => {
           this.currentUser = response.data;
+          console.log(response.data);
           this.checkForStudio();
         })
         .catch((error) => console.log(error, "Cannot get user"));
@@ -167,12 +172,12 @@ export default {
     },
     sendFile() {
       let formData = new FormData();
-      formData.append("studio[image]", this.file);
-      formData.append("studio[name]", this.studio.name);
+      formData.append("file", this.file);
+      // formData.append("studio[name]", this.studio.name);
 
       this.secured
-        .put(`/studios/${this.studio.id}`, formData)
-        .then((response) => (this.studioImage = response.data.image_url))
+        .patch(`/studios/${this.studio.id}`, formData)
+        .then((response) => console.log(response.data))
         .then(() => {
           this.editing = false;
           this.printList();
