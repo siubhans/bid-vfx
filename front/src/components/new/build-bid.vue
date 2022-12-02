@@ -125,13 +125,9 @@
             </div>
           </td>
           <td class="shotCellSmall">
-            <input
-              v-if="editing === index"
-              type="text"
-              v-model="shots[index].total"
-            />
+            <span v-if="editing === index">Not editable</span>
             <div v-else :title="shot.total">
-              {{ shot.total }}
+              {{ formatCurrency(shot.total) }}
             </div>
           </td>
           <td>
@@ -211,10 +207,11 @@ export default {
       showNewForm: false,
       showImageInput: false,
       file: "",
+      rate: "",
     };
   },
   created() {
-    // this.getList();
+    this.getRate();
     this.printList();
   },
   methods: {
@@ -261,7 +258,7 @@ export default {
             vfx_work: this.shots[index].vfx_work,
             notes: this.shots[index].notes,
             days: this.shots[index].days,
-            total: this.shots[index].total,
+            total: this.rate * this.shots[index].days,
           },
         })
         .then(() => {
@@ -281,6 +278,7 @@ export default {
           this.shots = response.data;
         });
     },
+
     darkModeToggle() {
       this.darkMode = !this.darkMode;
       this.onOff = this.darkMode ? "Light Mode" : "Dark Mode";
@@ -301,6 +299,19 @@ export default {
           this.showImageInput = false;
         })
         .catch((error) => console.log(error, "Cannot process studio update"));
+    },
+    getRate() {
+      this.plain
+        .get(`/bids/${localStorage.currentBid}`)
+        .then((response) => {
+          this.rate = response.data.cost;
+        })
+        .catch((error) => console.log(error, "Cannot get rate"));
+    },
+    formatCurrency(cost) {
+      let val = (cost / 1).toFixed(2);
+      val = val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return "€" + val;
     },
   },
   computed: {
