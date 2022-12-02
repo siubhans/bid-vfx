@@ -12,6 +12,7 @@
           <th scope="col">Project</th>
           <th scope="col">fps</th>
           <th scope="col">Resolution</th>
+          <th scope="col">Day Rate</th>
           <th scope="col"></th>
           <th scope="col"></th>
           <th scope="col">
@@ -26,7 +27,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(bid, index) in bids" :key="bid.project">
+        <tr v-for="(bid, index) in bids" :key="index">
           <th scope="row">
             {{ index + 1 }}
           </th>
@@ -40,7 +41,6 @@
           </td>
           <td>
             <input
-              class="input-group mb-3"
               v-if="editing === index"
               type="text"
               v-model="bids[index].fps"
@@ -49,7 +49,6 @@
           </td>
           <td>
             <input
-              class="input-group mb-3"
               v-if="editing === index"
               type="text"
               v-model="bids[index].resolution"
@@ -57,11 +56,15 @@
             <span v-else>{{ bid.resolution }}</span>
           </td>
           <td>
-            <button
-              class="btn"
-              :class="darkMode ? 'btn-light' : 'btn-dark'"
-              @click="deleteBid(bid.id)"
-            >
+            <input
+              v-if="editing === index"
+              type="number"
+              v-model="bids[index].cost"
+            />
+            <span v-else>{{ formatCurrency(bid.cost) }}</span>
+          </td>
+          <td>
+            <button class="btn btn-warning" @click="deleteBid(bid.id)">
               Delete
             </button>
           </td>
@@ -136,6 +139,7 @@ export default {
             project: this.bids[index].project,
             fps: this.bids[index].fps,
             resolution: this.bids[index].resolution,
+            cost: this.bids[index].cost,
           },
         })
         .then(() => {
@@ -169,6 +173,11 @@ export default {
           this.currentUser = response.data;
         })
         .catch((error) => console.log(error, "Cannot get user"));
+    },
+    formatCurrency(cost) {
+      let val = (cost / 1).toFixed(2);
+      val = val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return "€" + val;
     },
   },
   computed: {

@@ -23,6 +23,15 @@
               id="resolution"
             />
           </div>
+          <div class="col">
+            <label for="cost" class="form-label">Day rate</label>
+            <input
+              type="number"
+              class="form-control"
+              v-model="cost"
+              id="cost"
+            />
+          </div>
         </div>
         <div v-if="clients.length">
           <label for="clientId" class="form-label">Clients</label>
@@ -82,6 +91,7 @@ export default {
             project: this.project,
             fps: this.fps,
             resolution: this.resolution,
+            cost: this.cost,
             client_id: this.clientId,
           },
         })

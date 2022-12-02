@@ -49,7 +49,7 @@ module Api
 
         # Only allow a list of trusted parameters through.
         def bid_params
-          params.require(:bid).permit(:project, :fps, :resolution, :client_id)
+          params.require(:bid).permit(:project, :fps, :resolution, :cost, :client_id)
         end
     end
   end
