@@ -42,9 +42,9 @@ gem 'rack-cors', :require => 'rack/cors'
 gem "jwt_sessions"
 
 
-gem "jsonapi_serializer", "~> 0.1.1", require: false
+# gem "jsonapi_serializer", "~> 0.1.1", require: false
 
-gem "active_model_serializers", "~> 0.10.13", require: false
+# gem "active_model_serializers", "~> 0.10.13", require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
