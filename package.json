@@ -6,7 +6,7 @@
     "node": "16.15.0"
   },
   "scripts": {
-    "clean": "rm -rf public && redis-server",
+    "clean": "rm -rf public",
     "build": "cd front && yarn install && yarn add axios && yarn build",
     "deploy": "cp -a front/dist/. public/",
     "heroku-postbuild": "yarn run clean && yarn run build && yarn run deploy"
