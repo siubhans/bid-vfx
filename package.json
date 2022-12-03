@@ -7,7 +7,7 @@
   },
   "scripts": {
     "clean": "rm -rf public",
-    "build": "cd front && yarn install && yarn add @vue/cli && yarn build",
+    "build": "cd front && yarn install && yarn add axios && yarn build",
     "deploy": "cp -a front/dist/. public/",
     "heroku-postbuild": "yarn run clean && yarn run build && yarn run deploy"
   }
