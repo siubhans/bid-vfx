@@ -1,0 +1,13 @@
+{
+  "name": "bid-vfx-backend",
+  "description": "bid vfx backend",
+  "engines": {
+    "yarn": ">= 1.22.19"
+  },
+  "scripts": {
+    "clean": "rm -rf public",
+    "build": "cd front && yarn install && yarn build",
+    "deploy": "cp -a front/dist/. public/",
+    "heroku-postbuild": "yarn run clean && yarn run build && yarn run deploy"
+  }
+}
