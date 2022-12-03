@@ -2,7 +2,8 @@
   "name": "bid-vfx-backend",
   "description": "bid vfx backend",
   "engines": {
-    "yarn": ">= 1.22.19"
+    "yarn": ">= 1.22.19",
+    "node": "16.15.0"
   },
   "scripts": {
     "clean": "rm -rf public",
