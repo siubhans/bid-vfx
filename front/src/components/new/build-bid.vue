@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="sheet padding-10mm">
     <sideBar v-if="loggedIn" />
+
     <form v-if="showNewForm" @submit.prevent="addNewShot">
       <div class="form-group">
         <label for="newName">Enter Shot Name</label>

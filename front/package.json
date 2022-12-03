@@ -13,6 +13,8 @@
     "bootstrap-vue": "^2.23.1",
     "core-js": "^3.8.3",
     "html-pdf": "^3.0.1",
+    "html2canvas": "^1.4.1",
+    "pdfmake": "^0.2.6",
     "vue": "^3.2.13",
     "vue-axios": "^3.5.2",
     "vue-resource": "^1.5.3",
