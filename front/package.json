@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "frontend": "cd front && yarn serve",
+    "postinstall": "yarn serve",
     "api": "rail s"
   },
   "dependencies": {
