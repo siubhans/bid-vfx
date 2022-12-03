@@ -6,6 +6,7 @@
   },
   "scripts": {
     "clean": "rm -rf public",
+    "vue": "yarn global add @vue/cli",
     "build": "cd front && yarn install && yarn build",
     "deploy": "cp -a front/dist/. public/",
     "heroku-postbuild": "yarn run clean && yarn run build && yarn run deploy"
