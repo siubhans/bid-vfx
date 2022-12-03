@@ -21,8 +21,9 @@
     "vue-router": "^4.1.6",
     "vue-sidebar-menu-akahon": "^0.1.4",
     "vue3-icon": "^2.1.0",
-    "@vue/cli-service": "~5.0.0",
-    "@vue/cli-plugin-babel": "~5.0.0"
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
