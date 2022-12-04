@@ -64,7 +64,7 @@ export default {
         })
         .then((response) => {
           console.log(response.data);
-          this.$router.replace("/clients");
+          this.$router.replace("/clientsView");
         })
         .catch((error) => console.log(error, "Cannot create client"));
     },

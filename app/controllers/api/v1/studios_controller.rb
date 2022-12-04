@@ -1,5 +1,3 @@
-require "active_model_serializers"
-
 module Api
   module V1
     class StudiosController < ApplicationController
@@ -9,7 +7,7 @@ module Api
       # GET /studios
       def index
         @studios =  current_user.studios
-        render :json => @studios, each_serializer: StudioSerializer
+        render :json => @studios
         # render json: StudioSerializer.new(@studios).serializable_hash[:data][:attributes]
       end
 

@@ -21,22 +21,22 @@ const routes = [
     component: registerUser,
   },
   {
-    path: "/bids",
+    path: "/bidsView",
     name: "bidView",
     component: bidView,
   },
   {
-    path: "/clients",
+    path: "/clientsView",
     name: "clientView",
     component: clientView,
   },
   {
-    path: "/users",
+    path: "/usersView",
     name: "userView",
     component: userView,
   },
   {
-    path: "/studio",
+    path: "/studioView",
     name: "studioView",
     component: studioView,
   },

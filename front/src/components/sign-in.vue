@@ -69,7 +69,7 @@ export default {
       localStorage.email = this.email;
       localStorage.signedIn = 1;
       this.error = "";
-      this.$router.replace("/bids");
+      this.$router.replace("/bidsView");
     },
     signinFailed(error) {
       this.error =
@@ -81,7 +81,7 @@ export default {
     },
     checkSignedIn() {
       if (localStorage.signedIn == 1) {
-        this.$router.replace("/bids");
+        this.$router.replace("/bidsView");
       }
     },
   },

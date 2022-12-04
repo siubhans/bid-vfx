@@ -3,20 +3,20 @@
     <router-view />
     <button @click="download">print</button>
     <div id="print" class="letter">
-      <div class="pageout"><BuildBid ref="print" /></div>
-      <div class="preview"><BuildBid /></div>
+      <!-- <div class="pageout"><BuildBid ref="print" /></div>
+      <div class="preview"><BuildBid /></div> -->
     </div>
   </div>
 </template>
 
 <script>
 import SvgIcon from "vue3-icon";
-import BuildBid from "@/components/new/build-bid.vue";
+// import BuildBid from "@/components/new/build-bid.vue";
 import { createPdfFromHtml } from "./logic.js";
 
 export default {
   components: {
-    BuildBid,
+    // BuildBid,
   },
   methods: {
     download() {
