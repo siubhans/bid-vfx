@@ -188,7 +188,7 @@ export default {
       console.log(...formData.entries());
 
       this.secured
-        .patch(`/studios/${this.studio.id}`, formData)
+        .put(`/studios/${this.studio.id}`, formData)
         .then((response) => console.log(response.data))
         .then(() => {
           this.editing = false;
