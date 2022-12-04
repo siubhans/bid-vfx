@@ -39,12 +39,11 @@ module Api
 # PATCH/PUT /studios/1
   def addImage
     if params[:file]
-      # The data is a file upload coming from <input type="file" />
       @shot.pic.attach(params[:file])
-      # Generate a url for easy display on the front end 
+      # Generate a url for front end
       image = url_for(@shot.pic)
     end
-      # Now save that url in the shot
+      # Generate a url for front end
     if @shot.update(image: image)
       render json: @shot, status: :ok
     end
