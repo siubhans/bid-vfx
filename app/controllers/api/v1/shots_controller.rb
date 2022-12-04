@@ -46,6 +46,8 @@ module Api
       # Generate a url for front end
     if @shot.update(image: image)
       render json: @shot, status: :ok
+     else
+      render json: @shot.errors, status: :unprocessable_entity
     end
  end
 
@@ -62,7 +64,7 @@ module Api
 
     # Only allow a list of trusted parameters through.
     def shot_params
-      params.require(:shot).permit(:name, :image, :methodology, :scene, :description, :notes, :vfx_work, :days, :total, :bid_id, :pic, :file)
+      params.require(:shot).permit(:name, :methodology, :scene, :description, :notes, :vfx_work, :days, :total, :bid_id,)
     end
   end
  end

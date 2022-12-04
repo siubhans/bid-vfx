@@ -1,3 +1,6 @@
+ActionController::Parameters.permit_all_parameters = true
+
+
 module Api
   module V1
     class StudiosController < ApplicationController

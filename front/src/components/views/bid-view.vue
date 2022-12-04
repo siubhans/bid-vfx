@@ -116,7 +116,6 @@ export default {
       onOff: "on",
       editing: false,
       currentUser: [],
-      shots: [],
     };
   },
   created() {
@@ -146,7 +145,6 @@ export default {
         .then(() => {
           this.editing = false;
           this.printList();
-          this.getShots(bid, this.bids[index].cost);
         })
         .catch((error) => console.log(error, "Cannot update record"));
     },
@@ -175,33 +173,6 @@ export default {
           this.currentUser = response.data;
         })
         .catch((error) => console.log(error, "Cannot get user"));
-    },
-    getShots(bid, rate) {
-      this.plain
-        .get("/shots/", {
-          params: {
-            bid_id: bid,
-          },
-        })
-        .then((response) => {
-          this.shots = response.data;
-          this.updateCosts(this.shots, rate);
-        });
-    },
-    updateCosts(shots, rate) {
-      const shotArray = Array.from(shots);
-      shotArray.forEach((shot) => {
-        this.secured
-          .patch(`shots/${shot.id}`, {
-            shot: {
-              total: rate * shot.days,
-            },
-          })
-          .then(() => {
-            console.log("updated shot", shot.id);
-          })
-          .catch((error) => console.log(error, "Cannot update shot"));
-      });
     },
     formatCurrency(cost) {
       let val = (cost / 1).toFixed(2);

@@ -179,17 +179,15 @@ export default {
         .catch((error) => console.log(error, "Cannot update record"));
     },
     selectFile() {
-      console.log(this.$refs.file.files[0]);
       this.file = this.$refs.file.files[0];
     },
     sendFile() {
       let formData = new FormData();
       formData.append("image", this.file);
-      console.log(...formData.entries());
 
       this.secured
         .put(`/studios/${this.studio.id}`, formData)
-        .then((response) => console.log(response.data))
+        .then(() => console.log(...formData.entries()))
         .then(() => {
           this.editing = false;
           this.printList();
