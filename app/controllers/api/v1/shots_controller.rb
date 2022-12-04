@@ -63,7 +63,7 @@ module Api
 
     # Only allow a list of trusted parameters through.
     def shot_params
-      params.require(:shot).permit(:name, :image, :methodology, :scene, :description, :notes, :vfx_work, :days, :total, :bid_id, :pic)
+      params.require(:shot).permit(:name, :image, :methodology, :scene, :description, :notes, :vfx_work, :days, :total, :bid_id, :pic, :file)
     end
   end
  end
