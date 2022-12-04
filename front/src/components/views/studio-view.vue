@@ -179,12 +179,13 @@ export default {
         .catch((error) => console.log(error, "Cannot update record"));
     },
     selectFile() {
+      console.log(this.$refs.file.files[0]);
       this.file = this.$refs.file.files[0];
     },
     sendFile() {
       let formData = new FormData();
-      formData.append("file", this.file);
-      // formData.append("studio[name]", this.studio.name);
+      formData.append("image", this.file);
+      console.log(...formData.entries());
 
       this.secured
         .patch(`/studios/${this.studio.id}`, formData)

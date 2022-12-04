@@ -38,9 +38,9 @@ module Api
 
       # PATCH/PUT /studios/1
       def update
-        if params[:file]
+        if params[:image]
           # The data is a file upload coming from <input type="file" />
-          @studio.image.attach(params[:file])
+          @studio.image.attach(params[:image])
           # Generate a url for easy display on the front end 
           logo = url_for(@studio.image)
         end
