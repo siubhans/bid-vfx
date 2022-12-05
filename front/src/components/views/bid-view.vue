@@ -127,7 +127,9 @@ export default {
     deleteBid(bid) {
       this.secured
         .delete(`/bids/${bid}`)
-        .then(this.printList())
+        .then(() => {
+          this.printList();
+        })
         .catch((error) => console.log(error, "Cannot delete record"));
     },
     editBid(index) {

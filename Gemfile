@@ -7,10 +7,7 @@ ruby "3.1.2"
 gem "rails", "~> 7.0.4"
 
 # Use sqlite3 as the database for Active Record
- gem 'sqlite3', group: :development
- gem 'pg', group: :production
-
-# gem 'rails_12factor', group: :production
+gem "sqlite3", "~> 1.4"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
@@ -41,9 +38,10 @@ gem "image_processing", "~> 1.2"
 gem 'rack-cors', :require => 'rack/cors'
 gem "jwt_sessions"
 
-# gem "jsonapi_serializer", "~> 0.1.1", require: false
 
-# gem "active_model_serializers", "~> 0.10.13", require: false
+gem "jsonapi_serializer", "~> 0.1.1", require: false
+
+gem "active_model_serializers", "~> 0.10.13", require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

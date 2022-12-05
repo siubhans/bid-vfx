@@ -183,11 +183,11 @@ export default {
     },
     sendFile() {
       let formData = new FormData();
-      formData.append("image", this.file);
-
+      formData.append("file", this.file);
+      // formData.append("studio[name]", this.studio.name);
       this.secured
-        .put(`/studios/${this.studio.id}`, formData)
-        .then(() => console.log(...formData.entries()))
+        .patch(`/studios/${this.studio.id}`, formData)
+        .then((response) => console.log(response.data))
         .then(() => {
           this.editing = false;
           this.printList();

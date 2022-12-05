@@ -41,12 +41,13 @@ module Api
 
       # PATCH/PUT /studios/1
       def update
-        if params[:image]
-          @studio.image.attach(params[:image])
-          # Generate a url for front end
+        if params[:file]
+          # The data is a file upload coming from <input type="file" />
+          @studio.image.attach(params[:file])
+          # Generate a url for easy display on the front end 
           logo = url_for(@studio.image)
         end
-         # Generate a url for front studio
+          # Now save that url in the profile
         if @studio.update(logo: logo)
           render json: @studio, status: :ok
         end
