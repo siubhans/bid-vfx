@@ -292,7 +292,9 @@ export default {
       formData.append("file", this.file);
       console.log("2", ...formData.entries());
       this.secured
-        .patch(`/shotsImage/${shot}`, formData)
+        .patch(`/shotsImage/${shot}`, {
+          file: formData,
+        })
         .then((response) => {
           console.log("3", ...formData.entries());
           console.log("4", response.data);
