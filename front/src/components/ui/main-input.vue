@@ -1,9 +1,25 @@
 <template>
-  <div></div>
+  <span>
+    <input class="main-input">{{ paceholder }}</h1>
+  </span>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    title: String,
+  },
+};
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.heading_superior {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  letter-spacing: 0.8rem;
+  font-size: calc(1rem + 1vw);
+  font-weight: 100;
+  opacity: 0.6;
+  padding-top: 15vh;
+}
+</style>

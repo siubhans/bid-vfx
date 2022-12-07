@@ -6,6 +6,16 @@ import VueAxios from "vue-axios";
 import { plainAxiosInstance, securedAxiosInstance } from "./backend/axios";
 import VueSidebarMenuAkahon from "vue-sidebar-menu-akahon";
 import SvgIcon from "vue3-icon";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faUser,
+  faLock,
+  faBuilding,
+  faUnlock,
+} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faUser, faLock, faBuilding, faUnlock);
 
 createApp(App)
   .use(router)
@@ -15,6 +25,7 @@ createApp(App)
   })
   .component("vue-sidebar-menu-akahon", VueSidebarMenuAkahon)
   .component("svg-icon", SvgIcon)
+  .component("font-awesome-icon", FontAwesomeIcon)
   .mount("#app");
 
 import "bootstrap/dist/js/bootstrap.min.js";
