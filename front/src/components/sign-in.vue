@@ -1,6 +1,5 @@
 <template>
   <div>
-    <sideBar v-if="loggedIn" />
     <div class="container">
       <h3>Sign In</h3>
       <form @submit.prevent="signin">
@@ -32,8 +31,6 @@
 </template>
 
 <script>
-import sideBar from "@/components/ui/side-bar.vue";
-
 export default {
   name: "signIn",
   data() {
@@ -50,9 +47,7 @@ export default {
   updated() {
     this.checkSignedIn();
   },
-  components: {
-    sideBar,
-  },
+  components: {},
   methods: {
     signin() {
       this.plain
