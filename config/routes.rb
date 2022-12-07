@@ -43,5 +43,5 @@ Rails.application.routes.draw do
   post "signup", controller: :signup, action: :create
   delete "signin", controller: :signin, action: :destroy
   
-  get "*path", to: "fallback#index", constraints: ->(req) { req.format.html? }
+  get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 end
