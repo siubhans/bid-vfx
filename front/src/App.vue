@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <router-view />
-    <button @click="download">print</button>
+    <!-- <button @click="download">print</button>
     <div id="print" class="letter">
-      <!-- <div class="pageout"><BuildBid ref="print" /></div>
-      <div class="preview"><BuildBid /></div> -->
-    </div>
+      <div class="pageout"><BuildBid ref="print" /></div>
+      <div class="preview"><BuildBid /></div> 
+    </div>-->
   </div>
 </template>
 

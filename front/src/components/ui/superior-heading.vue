@@ -1,6 +1,6 @@
 <template>
   <span>
-    <input class="main-input">{{ paceholder }}</h1>
+    <h1 class="heading_superior">{{ title.toUpperCase() }}</h1>
   </span>
 </template>
 
