@@ -8,9 +8,14 @@ import VueSidebarMenuAkahon from "vue-sidebar-menu-akahon";
 import SvgIcon from "vue3-icon";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faLock,
+  faBuilding,
+  faUnlock,
+} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faUser, faLock);
+library.add(faUser, faLock, faBuilding, faUnlock);
 
 createApp(App)
   .use(router)

@@ -1,35 +1,40 @@
 <template>
-  <div class="container flexContainer">
-    <superiorHeading class="flex-1" title="Bid VFX" />
-    <div class="container flex-2">
-      <form @submit.prevent="signin">
-        <div v-if="error" class="error">{{ error }}</div>
-        <div class="input-icons mb-5">
-          <i class="icon"><font-awesome-icon icon="user" /></i>
-          <input
-            type="email"
-            class="form-control input-field input_user"
-            v-model="email"
-            id="email"
-            placeholder="Email"
-            autocomplete="off"
-          />
-        </div>
-        <div class="input-icons mb-5">
-          <i class="icon"><font-awesome-icon icon="lock" /></i>
-          <input
-            type="password"
-            class="form-control input-field input_user"
-            v-model="password"
-            id="password"
-            placeholder="Password"
-            autocomplete="off"
-          />
-        </div>
-        <button type="submit" class="btn button_login mb-3">Sign in</button>
-      </form>
-      <router-link class="Form_link" to="/register">Create account</router-link>
+  <div>
+    <div class="container flexContainer">
+      <superiorHeading class="flex-1" title="Bid VFX" />
+      <div class="container flex-2">
+        <form @submit.prevent="signin">
+          <div v-if="error" class="error">{{ error }}</div>
+          <div class="input-icons mb-4">
+            <i class="icon"><font-awesome-icon icon="user" /></i>
+            <input
+              type="email"
+              class="form-control input-field input_user"
+              v-model="email"
+              id="email"
+              placeholder="Email"
+              autocomplete="off"
+            />
+          </div>
+          <div class="input-icons mb-5">
+            <i class="icon"><font-awesome-icon icon="lock" /></i>
+            <input
+              type="password"
+              class="form-control input-field input_user"
+              v-model="password"
+              id="password"
+              placeholder="Password"
+              autocomplete="off"
+            />
+          </div>
+          <button type="submit" class="btn button_login mb-3">Sign in</button>
+        </form>
+        <router-link class="Form_link" to="/register"
+          >Create account</router-link
+        >
+      </div>
     </div>
+    <img class="imgBG" src="../assets/star.png" alt="" />
   </div>
 </template>
 
@@ -106,11 +111,21 @@ export default {
 </script>
 <style scoped>
 /* #app {
-  background-image: url("../assets/autodraw_bg2.png");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center; 
+  background: url("../assets/stars.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100vh;
 } */
+.imgBG {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 30vw;
+  opacity: 0.4;
+}
+
 .error {
   -webkit-text-fill-color: var(--alertRed);
 }

@@ -39,6 +39,7 @@ export default {
   height: 100vh;
   background-color: var(--mainNavy);
   color: var(--white);
+  padding: 0;
 }
 
 .outterContainer {
