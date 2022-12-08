@@ -45,6 +45,7 @@
             class="form-control"
             type="file"
             ref="file"
+            name="file"
             @change="selectFile"
           />
         </div>

@@ -1,5 +1,4 @@
-ActionController::Parameters.permit_all_parameters = true
-
+require "active_model_serializers"
 
 module Api
   module V1
@@ -43,7 +42,7 @@ module Api
       def update
         if params[:file]
           # The data is a file upload coming from <input type="file" />
-          @studio.image.attach(params[:file])
+          @studio.update(image: params[:file])
           # Generate a url for easy display on the front end 
           logo = url_for(@studio.image)
         end
