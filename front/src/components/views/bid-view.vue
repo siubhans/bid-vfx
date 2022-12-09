@@ -2,6 +2,28 @@
   <div>
     <sideBar v-if="loggedIn" />
     <mainHeading title="Bids" />
+    <form
+      v-if="!listIsFiltered"
+      class="FilterForm_container mb-4"
+      @submit.prevent="filterBid()"
+    >
+      <select
+        class="form-select FilterForm_item-1"
+        aria-label="Default select example"
+        v-model="selectedClient"
+      >
+        <option value="" disabled selected>Select a client</option>
+        <option v-for="client in clients" :key="client.name" :value="client.id">
+          {{ client.name }} : {{ client.studio }}
+        </option>
+      </select>
+      <button type="submit" class="btn btn-secondary FilterForm_item-2">
+        Filter by Client
+      </button>
+    </form>
+    <button v-else @click="printList" class="btn btn-secondary">
+      Unfilter
+    </button>
     <table
       class="table table-hover table-striped"
       :class="darkMode ? 'table-dark' : 'table-light'"
@@ -37,7 +59,9 @@
               type="text"
               v-model="bids[index].project"
             />
-            <span v-else>{{ bid.project }}</span>
+            <span v-else
+              ><b>{{ bid.project }}</b></span
+            >
           </td>
           <td>
             <input
@@ -117,10 +141,14 @@ export default {
       editing: false,
       currentUser: [],
       shots: [],
+      clients: {},
+      selectedClient: "",
+      listIsFiltered: false,
     };
   },
   created() {
     this.getList();
+    this.getClientList();
     this.printList();
   },
   methods: {
@@ -160,6 +188,7 @@ export default {
     printList() {
       this.plain.get("/bids").then((response) => {
         this.bids = response.data;
+        this.listIsFiltered = false;
       });
     },
     darkModeToggle() {
@@ -210,6 +239,26 @@ export default {
       val = val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       return "€" + val;
     },
+    getClientList() {
+      this.secured.get("/clients").then((response) => {
+        this.clients = response.data;
+        console.log(this.clients);
+      });
+    },
+    filterBid() {
+      if (this.selectedClient === "") return;
+      else {
+        const filteredBids = [];
+        Object.keys(this.bids).forEach((key) => {
+          if (this.bids[key].client_id === this.selectedClient) {
+            filteredBids.push(this.bids[key]);
+          }
+        });
+        this.bids = filteredBids;
+        this.selectedClient = "";
+        this.listIsFiltered = true;
+      }
+    },
   },
   computed: {
     loggedIn() {
@@ -219,4 +268,15 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.FilterForm_container {
+  display: flex;
+  width: 40%;
+}
+.FilterForm_item-1 {
+  flex: 2;
+}
+.FilterForm_item-2 {
+  flex: 1;
+}
+</style>

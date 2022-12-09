@@ -3,7 +3,7 @@
     <sideBar v-if="loggedIn" />
     <mainHeading title="Clients" />
     <a href="/newClient">Add new client</a>
-    <ul v-for="(client, index) in clients" :key="client.name">
+    <ul v-for="(client, index) in clients" :key="index">
       <input
         v-if="editing === index"
         type="text"
