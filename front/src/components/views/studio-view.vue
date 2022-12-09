@@ -206,8 +206,15 @@ export default {
 
 <style scoped>
 .image {
-  width: 200px;
+  width: 400px;
   border-radius: 10px;
   border: 2px solid white;
+}
+.innerContainer {
+  align-items: center;
+  justify-content: center;
+}
+.btn {
+  margin-right: 1rem;
 }
 </style>

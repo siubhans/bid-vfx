@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>{{ title }}</h3>
+    <h3 class="heading_main">{{ title.toUpperCase() }}</h3>
   </div>
 </template>
 
@@ -12,4 +12,13 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.heading_main {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  letter-spacing: 0.6rem;
+  font-size: calc(1rem + 1vw);
+  font-weight: 100;
+  opacity: 0.7;
+}
+</style>

@@ -1,35 +1,44 @@
 <template>
-  <div>
+  <div class="outterContainer">
     <sideBar v-if="loggedIn" />
-    <mainHeading title="New Client" />
-    <form @submit.prevent="addNewClient">
-      <div v-if="error">{{ error }}</div>
-      <div class="mb-3"></div>
-      <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
-        <input
-          type="text"
-          class="form-control"
-          v-model="name"
-          id="name"
-          placeholder="Some Client"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="producer" class="form-label">Producer</label>
-        <input
-          type="text"
-          class="form-control"
-          v-model="producer"
-          id="producer"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="studio" class="form-label">Studio</label>
-        <input type="text" class="form-control" v-model="studio" id="studio" />
-      </div>
-      <button type="submit" class="btn btn-secondary">Create</button>
-    </form>
+    <div class="innerContainer">
+      <mainHeading title="New Client" />
+      <form @submit.prevent="addNewClient">
+        <div v-if="error">{{ error }}</div>
+        <div class="mb-3"></div>
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            v-model="name"
+            id="name"
+            placeholder="Client's Name"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="producer" class="form-label">Producer</label>
+          <input
+            type="text"
+            class="form-control"
+            v-model="producer"
+            id="producer"
+            placeholder="Producer's Name"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="studio" class="form-label">Studio</label>
+          <input
+            type="text"
+            class="form-control"
+            v-model="studio"
+            id="studio"
+            placeholder="Studio Name"
+          />
+        </div>
+        <button type="submit" class="btn btn-secondary">Create</button>
+      </form>
+    </div>
   </div>
 </template>
 

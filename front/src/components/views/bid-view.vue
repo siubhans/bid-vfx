@@ -1,29 +1,35 @@
 <template>
   <div>
     <sideBar v-if="loggedIn" />
-    <mainHeading title="Bids" />
-    <form
-      v-if="!listIsFiltered"
-      class="FilterForm_container mb-4"
-      @submit.prevent="filterBid()"
-    >
-      <select
-        class="form-select FilterForm_item-1"
-        aria-label="Default select example"
-        v-model="selectedClient"
+    <mainHeading class="outterContainer" title="Bids" />
+    <div class="outterContainer">
+      <form
+        v-if="!listIsFiltered"
+        class="FilterForm_container mb-4"
+        @submit.prevent="filterBid()"
       >
-        <option value="" disabled selected>Select a client</option>
-        <option v-for="client in clients" :key="client.name" :value="client.id">
-          {{ client.name }} : {{ client.studio }}
-        </option>
-      </select>
-      <button type="submit" class="btn btn-secondary FilterForm_item-2">
-        Filter by Client
+        <select
+          class="form-select FilterForm_item-1"
+          aria-label="Default select example"
+          v-model="selectedClient"
+        >
+          <option value="" disabled selected>Select a client</option>
+          <option
+            v-for="client in clients"
+            :key="client.name"
+            :value="client.id"
+          >
+            {{ client.name }} : {{ client.studio }}
+          </option>
+        </select>
+        <button type="submit" class="btn btn-filter FilterForm_item-2">
+          Filter by Client
+        </button>
+      </form>
+      <button v-else @click="printList" class="btn btn-filter mb-4">
+        Filter Off
       </button>
-    </form>
-    <button v-else @click="printList" class="btn btn-secondary">
-      Unfilter
-    </button>
+    </div>
     <table
       class="table table-hover table-striped"
       :class="darkMode ? 'table-dark' : 'table-light'"
@@ -269,14 +275,25 @@ export default {
 </script>
 
 <style scoped>
+.table {
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.btn-filter {
+  background-color: var(--secondaryNavy);
+  color: var(--white);
+}
+
 .FilterForm_container {
   display: flex;
   width: 40%;
 }
 .FilterForm_item-1 {
-  flex: 2;
+  flex: 1;
 }
 .FilterForm_item-2 {
   flex: 1;
+  margin-left: 5px;
 }
 </style>
