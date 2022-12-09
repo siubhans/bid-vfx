@@ -1,12 +1,9 @@
 <template>
   <div>
-    <button class="btn btn-secondary" v-if="loggedIn" @click="logout()">
-      Logout
-    </button>
     <VueSidebarMenuAkahon
       menuTitle="Bid VFX"
       :isSearch="false"
-      profileImg=""
+      profileImg="../favicon.ico"
       :profileName="yourStudio"
       profileRole=""
       :isExitButton="false"
@@ -45,12 +42,12 @@ export default {
           tooltip: "clients",
           icon: "bx-group",
         },
-        {
-          link: "/usersView",
-          name: "users",
-          tooltip: "users",
-          icon: "bx-user",
-        },
+        // {
+        //   link: "/usersView",
+        //   name: "users",
+        //   tooltip: "users",
+        //   icon: "bx-user",
+        // },
         {
           link: "/studioView",
           name: "studio",

@@ -1,41 +1,59 @@
 <template>
   <div>
     <sideBar v-if="loggedIn" />
-    <mainHeading title="Clients" />
-    <a href="/newClient">Add new client</a>
-    <ul v-for="(client, index) in clients" :key="index">
-      <input
-        v-if="editing === index"
-        type="text"
-        v-model="clients[index].name"
-      />
-      <li v-else><b>Contact name:</b> {{ client.name }}</li>
-      <input
-        v-if="editing === index"
-        type="text"
-        v-model="clients[index].producer"
-      />
-      <li v-else><b>Producer:</b> {{ client.producer }}</li>
-      <input
-        v-if="editing === index"
-        type="text"
-        v-model="clients[index].studio"
-      />
-      <li v-else><b>Studio:</b> {{ client.studio }}</li>
-      <button class="btn btn-light" @click="deleteClient(client.id)">
-        Delete
-      </button>
-      <button
-        class="btn btn-light"
-        v-if="editing === index"
-        @click="updateClient(client.id, index)"
-      >
-        Update
-      </button>
-      <button class="btn btn-light" v-else @click="editClient(index)">
-        Edit
-      </button>
-    </ul>
+    <div class="outterContainer">
+      <mainHeading title="Clients" />
+    </div>
+    <div class="outterContainer">
+      <a class="btn btn-filter mb-4" href="/newClient">Add new client</a>
+    </div>
+    <div class="gridContainer">
+      <ul v-for="(client, index) in clients" :key="index">
+        <div class="card">
+          <div class="card-body">
+            <input
+              v-if="editing === index"
+              type="text"
+              v-model="clients[index].name"
+            />
+            <h4 v-else class="card-title mb-2">
+              {{ client.name }}
+            </h4>
+            <input
+              v-if="editing === index"
+              type="text"
+              v-model="clients[index].producer"
+            />
+            <h6 v-else class="card-subtitle mb-2 text-muted">
+              {{ client.producer }}
+            </h6>
+            <input
+              v-if="editing === index"
+              type="text"
+              v-model="clients[index].studio"
+            />
+            <h6 v-else class="card-subtitle mb-2 text-muted">
+              {{ client.studio }}
+            </h6>
+            <div>
+              <button class="btn btn-card" @click="deleteClient(client.id)">
+                Delete
+              </button>
+              <button
+                class="btn btn-card"
+                v-if="editing === index"
+                @click="updateClient(client.id, index)"
+              >
+                Update
+              </button>
+              <button class="btn btn-card" v-else @click="editClient(index)">
+                Edit
+              </button>
+            </div>
+          </div>
+        </div>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -96,4 +114,54 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.gridContainer {
+  display: grid;
+  grid-auto-rows: auto;
+  grid-gap: 1.5rem;
+  margin-right: 1.5rem;
+  margin-left: 1.5rem;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  margin-bottom: 5px;
+}
+
+@media only screen and (min-width: 1200px) {
+  .gridContainer {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media only screen and (max-width: 1199px) and (min-width: 900px) {
+  .gridContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media only screen and (max-width: 899px) and (min-width: 600px) {
+  .gridContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.btn-filter {
+  background-color: var(--mediumBlue);
+  color: var(--white);
+}
+.btn-card {
+  background-color: var(--mediumBlue);
+  color: var(--white);
+  margin-right: 10px;
+}
+.btn-card:hover {
+  background-color: var(--secondaryNavy);
+  color: var(--white);
+}
+.card-title {
+  color: var(--secondaryNavy);
+}
+</style>

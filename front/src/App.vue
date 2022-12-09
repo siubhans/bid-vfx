@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <logOut v-if="currentUser.id > 0" />
     <router-view />
     <!-- <button @click="download">print</button>
     <div id="print" class="letter">
@@ -13,12 +14,35 @@
 import SvgIcon from "vue3-icon";
 // import BuildBid from "@/components/new/build-bid.vue";
 import { createPdfFromHtml } from "./logic.js";
+import logOut from "@/components/ui/log-out.vue";
 
 export default {
+  data() {
+    return {
+      currentUser: {},
+    };
+  },
   components: {
-    // BuildBid,
+    logOut,
+  },
+  created() {
+    this.getCurrentUser();
+  },
+  updated() {
+    this.getCurrentUser();
   },
   methods: {
+    getCurrentUser() {
+      this.plain
+        .get(`/current`)
+        .then((response) => {
+          this.currentUser = response.data;
+          console.log(this.currentUser.id);
+        })
+        .catch(() => {
+          this.currentUser = {};
+        });
+    },
     download() {
       // alert(this.$refs.print);
       createPdfFromHtml(this.$refs.print.$el);
@@ -28,6 +52,11 @@ export default {
     return {
       SvgIcon,
     };
+  },
+  computed: {
+    loggedIn() {
+      return this.currentUser;
+    },
   },
 };
 </script>
