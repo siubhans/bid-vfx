@@ -39,6 +39,7 @@ module Api
 # PATCH/PUT /studios/1
   def addImage
     if params[:file]
+      puts params[:file]
       @shot.pic.attach(params[:file])
       # Generate a url for front end
       image = url_for(@shot.pic)

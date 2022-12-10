@@ -1,5 +1,3 @@
-require "active_model_serializers"
-
 module Api
   module V1
     class StudiosController < ApplicationController
@@ -42,7 +40,7 @@ module Api
       def update
         if params[:file]
           # The data is a file upload coming from <input type="file" />
-          @studio.update(image: params[:file])
+          @studio.image.attach(params[:file])
           # Generate a url for easy display on the front end 
           logo = url_for(@studio.image)
         end

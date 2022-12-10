@@ -45,7 +45,6 @@
             class="form-control"
             type="file"
             ref="file"
-            name="file"
             @change="selectFile"
           />
         </div>
@@ -135,7 +134,7 @@ export default {
     },
     confirmStudio() {
       this.secured
-        .post(`/studios`, {
+        .post("/studios", {
           studio: {
             name: this.currentUser.studio,
           },
@@ -152,7 +151,7 @@ export default {
     },
     createStudioDetails() {
       this.secured
-        .post(`/studios`, {
+        .post("/studios", {
           studio: {
             name: this.registeredStudio,
           },
@@ -164,7 +163,7 @@ export default {
           this.firstTimeStudio = false;
           this.$router.reload();
         })
-        .catch((error) => console.log(error, "Cannot update record"));
+        .catch((error) => console.log(error, "Cannot update studio"));
     },
     deleteStudioFromUser() {
       this.secured
@@ -177,7 +176,7 @@ export default {
           console.log("deleted studio");
           this.printList();
         })
-        .catch((error) => console.log(error, "Cannot update record"));
+        .catch((error) => console.log(error, "Cannot delete"));
     },
     selectFile() {
       this.file = this.$refs.file.files[0];
@@ -186,6 +185,7 @@ export default {
       let formData = new FormData();
       formData.append("file", this.file);
       // formData.append("studio[name]", this.studio.name);
+
       this.secured
         .patch(`/studios/${this.studio.id}`, formData)
         .then((response) => console.log(response.data))
@@ -206,15 +206,8 @@ export default {
 
 <style scoped>
 .image {
-  width: 400px;
+  width: 200px;
   border-radius: 10px;
   border: 2px solid white;
-}
-.innerContainer {
-  align-items: center;
-  justify-content: center;
-}
-.btn {
-  margin-right: 1rem;
 }
 </style>

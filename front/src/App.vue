@@ -28,9 +28,6 @@ export default {
   created() {
     this.getCurrentUser();
   },
-  updated() {
-    this.getCurrentUser();
-  },
   methods: {
     getCurrentUser() {
       this.plain
