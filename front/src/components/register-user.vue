@@ -79,6 +79,7 @@ export default {
   },
   methods: {
     register() {
+      console.log('made it here');
       this.plain
         .post("/signup", {
           email: this.email,
