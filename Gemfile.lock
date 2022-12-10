@@ -200,7 +200,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 7.0.4)
   redis (~> 4.0)
-  sqlite3 (~> 1.4)
+  sqlite3 (~> 1.5.4)
   tzinfo-data
 
 RUBY VERSION
