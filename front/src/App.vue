@@ -71,11 +71,14 @@ export default {
   display: flex;
   justify-content: center;
 }
+.error {
+  -webkit-text-fill-color: var(--alertRed);
+}
 
 .innerContainer {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 50%;
+  width: 60%;
 }
 </style>

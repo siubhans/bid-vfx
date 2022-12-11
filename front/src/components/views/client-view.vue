@@ -14,26 +14,26 @@
             <input
               v-if="editing === index"
               type="text"
-              v-model="clients[index].name"
+              v-model="clients[index].studio"
             />
             <h4 v-else class="card-title mb-2">
-              {{ client.name }}
+              {{ client.studio }}
             </h4>
+            <input
+              v-if="editing === index"
+              type="text"
+              v-model="clients[index].name"
+            />
+            <h6 v-else class="card-subtitle mb-2">
+              {{ client.name }}
+            </h6>
             <input
               v-if="editing === index"
               type="text"
               v-model="clients[index].producer"
             />
-            <h6 v-else class="card-subtitle mb-2 text-muted">
+            <h6 v-else class="card-subtitle mb-2">
               {{ client.producer }}
-            </h6>
-            <input
-              v-if="editing === index"
-              type="text"
-              v-model="clients[index].studio"
-            />
-            <h6 v-else class="card-subtitle mb-2 text-muted">
-              {{ client.studio }}
             </h6>
             <div>
               <button class="btn btn-card" @click="deleteClient(client.id)">
@@ -162,6 +162,11 @@ input {
   color: var(--white);
 }
 .card-title {
+  color: var(--mainNavy);
+}
+
+.card-subtitle {
   color: var(--secondaryNavy);
+  opacity: 0.5;
 }
 </style>
