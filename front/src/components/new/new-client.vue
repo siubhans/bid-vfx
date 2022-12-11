@@ -57,7 +57,7 @@
 
 <script>
 import useValidate from "@vuelidate/core";
-import { required, minLength, maxLength, alpha } from "@vuelidate/validators";
+import { required, minLength, maxLength } from "@vuelidate/validators";
 
 import sideBar from "@/components/ui/side-bar.vue";
 import mainHeading from "@/components/ui/main-heading.vue";
@@ -83,9 +83,8 @@ export default {
         required,
         minLength: minLength(4),
         maxLength: maxLength(50),
-        alpha,
       },
-      producer: { minLength: minLength(4), maxLength: maxLength(50), alpha },
+      producer: { minLength: minLength(4), maxLength: maxLength(50) },
       studio: { required, minLength: minLength(4), maxLength: maxLength(50) },
     };
   },
