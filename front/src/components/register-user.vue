@@ -14,6 +14,9 @@
             placeholder="Email"
             autocomplete="off"
           />
+          <p v-for="error of v$.email.$errors" :key="error.$uid" class="error">
+            <strong>{{ error.$message }}</strong>
+          </p>
         </div>
         <div class="input-icons mb-4">
           <i class="icon"><font-awesome-icon icon="building" /></i>
@@ -25,6 +28,9 @@
             placeholder="Your Studio Name"
             autocomplete="off"
           />
+          <p v-for="error of v$.studio.$errors" :key="error.$uid" class="error">
+            <strong>{{ error.$message }}</strong>
+          </p>
         </div>
         <div class="input-icons mb-4">
           <i class="icon"><font-awesome-icon icon="unlock" /></i>
@@ -36,6 +42,13 @@
             placeholder="Password"
             autocomplete="off"
           />
+          <p
+            v-for="error of v$.password.$errors"
+            :key="error.$uid"
+            class="error"
+          >
+            <strong>{{ error.$message }}</strong>
+          </p>
         </div>
         <div class="input-icons mb-5">
           <i class="icon"><font-awesome-icon icon="lock" /></i>
@@ -47,6 +60,16 @@
             placeholder="Confirm Password"
             autocomplete="off"
           />
+          <p
+            v-for="error of v$.confirmPassword.$errors"
+            :key="error.$uid"
+            class="error"
+          >
+            <strong>{{ error.$message }}</strong>
+          </p>
+          <p v-if="errorP" class="error">
+            <strong>{{ errorP }}</strong>
+          </p>
         </div>
         <button type="submit" class="btn button_login mb-3">Register</button>
       </form>
@@ -57,15 +80,28 @@
 </template>
 
 <script>
+import useValidate from "@vuelidate/core";
+import {
+  required,
+  email,
+  sameAs,
+  minLength,
+  maxLength,
+} from "@vuelidate/validators";
+
 import superiorHeading from "@/components/ui/superior-heading.vue";
+
 export default {
   name: "registerUser",
   data() {
     return {
+      v$: useValidate(),
       email: "",
       password: "",
       confirmPassword: "",
+      studio: "",
       error: "",
+      errorP: "",
     };
   },
   components: {
@@ -77,17 +113,36 @@ export default {
   updated() {
     this.checkSignedIn();
   },
+  validations() {
+    return {
+      email: { required, email },
+      password: {
+        required,
+        minLength: minLength(8),
+      },
+      confirmPassword: {
+        required,
+        sameAsPassword: sameAs(this.password),
+      },
+      studio: { required, minLength: minLength(4), maxLength: maxLength(40) },
+    };
+  },
   methods: {
     register() {
-      this.plain
-        .post("/signup", {
-          email: this.email,
-          password: this.password,
-          confirmPassword: this.confirmPassword,
-          studio: this.studio,
-        })
-        .then((response) => this.registerSuccessful(response))
-        .catch((error) => this.signinFailed(error));
+      this.v$.$validate();
+      if (!this.v$.$error) {
+        this.plain
+          .post("/signup", {
+            email: this.email,
+            password: this.password,
+            confirmPassword: this.confirmPassword,
+            studio: this.studio,
+          })
+          .then((response) => this.registerSuccessful(response))
+          .catch((error) => this.signinFailed(error));
+      } else {
+        console.log("Form invalid");
+      }
     },
     registerSuccessful(response) {
       if (!response.data.csrf) {
