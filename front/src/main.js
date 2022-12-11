@@ -3,7 +3,11 @@ import App from "./App.vue";
 import router from "./router";
 import "bootstrap/dist/css/bootstrap.min.css";
 import VueAxios from "vue-axios";
-import { plainAxiosInstance, securedAxiosInstance } from "./backend/axios";
+import {
+  plainAxiosInstance,
+  securedAxiosInstance,
+  imageAxiosInstance,
+} from "./backend/axios";
 import VueSidebarMenuAkahon from "vue-sidebar-menu-akahon";
 import SvgIcon from "vue3-icon";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -22,6 +26,7 @@ createApp(App)
   .use(VueAxios, {
     secured: securedAxiosInstance,
     plain: plainAxiosInstance,
+    image: imageAxiosInstance,
   })
   .component("vue-sidebar-menu-akahon", VueSidebarMenuAkahon)
   .component("svg-icon", SvgIcon)

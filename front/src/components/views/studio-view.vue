@@ -31,7 +31,7 @@
           Confirm Studio Details
         </button>
       </form>
-      <form @submit.prevent="sendFile" enctype="multipart/form-data">
+      <form enctype="multipart/form-data" @submit.prevent="sendFile">
         <input
           v-if="editing"
           class="input-group mb-3"
@@ -45,6 +45,7 @@
             class="form-control"
             type="file"
             ref="file"
+            name="studio[file]"
             @change="selectFile"
           />
         </div>
@@ -183,12 +184,12 @@ export default {
     },
     sendFile() {
       let formData = new FormData();
-      formData.append("file", this.file);
+      formData.append("studio[file]", this.file);
       // formData.append("studio[name]", this.studio.name);
 
       this.secured
-        .patch(`/studios/${this.studio.id}`, formData)
-        .then((response) => console.log(response.data))
+        .put(`/studios/${this.studio.id}`, formData)
+        .then(() => console.log(...formData.entries()))
         .then(() => {
           this.editing = false;
           this.printList();
