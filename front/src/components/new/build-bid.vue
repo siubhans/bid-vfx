@@ -1,6 +1,7 @@
 <template>
   <div>
     <sideBar v-if="loggedIn" />
+    <!-- <button @click="download">Print PDF</button> -->
     <form v-if="showNewForm" @submit.prevent="addNewShot">
       <div class="form-group">
         <label for="newName">Enter Shot Name</label>
@@ -13,185 +14,200 @@
       </div>
       <button type="submit" class="btn btn-success">Create Shot</button>
     </form>
-    <table
-      class="table table-hover table-striped"
-      :class="darkMode ? 'table-dark' : 'table-light'"
-    >
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Thumbnail</th>
-          <th scope="col">Shot Name</th>
-          <th scope="col">Scene</th>
-          <th scope="col">Description</th>
-          <th scope="col">VFX Work</th>
-          <th scope="col">Methodology</th>
-          <th scope="col">Notes</th>
-          <th scope="col">Days</th>
-          <th scope="col">Total</th>
-          <th scope="col"></th>
-          <th scope="col">
-            <button class="btn btn-success" @click="showNewShot">
-              Add New Shot
-            </button>
-          </th>
-          <th scope="col">
-            <button
-              class="btn"
-              :class="darkMode ? 'btn-outline-light' : 'btn-outline-dark'"
-              @click="darkModeToggle"
-            >
-              {{ onOff }}
-            </button>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(shot, index) in shots" :key="shot">
-          <th scope="row">
-            {{ index + 1 }}
-          </th>
-          <td class="shotCellSmall">
-            <img class="image" :src="shot.image" alt="shot thumbnail" />
-          </td>
-          <td class="shotCellSmall">
-            <input
-              v-if="editing === index"
-              type="text"
-              v-model="shots[index].name"
-            />
-            <div v-else :title="shot.name">
-              {{ shot.name }}
-            </div>
-          </td>
-          <td class="shotCellSmall">
-            <input
-              v-if="editing === index"
-              type="text"
-              v-model="shots[index].scene"
-            />
-            <div v-else :title="shot.scene">
-              {{ shot.scene }}
-            </div>
-          </td>
-          <td class="shotCellLarge">
-            <textarea
-              v-if="editing === index"
-              type="text"
-              v-model="shots[index].description"
-            />
-            <div v-else :title="shot.description">
-              {{ shot.description }}
-            </div>
-          </td>
-          <td class="shotCellLarge">
-            <textarea
-              v-if="editing === index"
-              type="text"
-              v-model="shots[index].vfx_work"
-            />
-            <div v-else :title="shot.vfx_work">
-              {{ shot.vfx_work }}
-            </div>
-          </td>
-          <td class="shotCellLarge">
-            <textarea
-              v-if="editing === index"
-              type="text"
-              v-model="shots[index].methodology"
-            />
-            <div v-else :title="shot.methodology">
-              {{ shot.methodology }}
-            </div>
-          </td>
-          <td class="shotCellLarge">
-            <textarea
-              v-if="editing === index"
-              type="text"
-              v-model="shots[index].notes"
-            />
-            <div v-else :title="shot.notes">
-              {{ shot.notes }}
-            </div>
-          </td>
-          <td class="shotCellSmall">
-            <input
-              v-if="editing === index"
-              type="number"
-              v-model="shots[index].days"
-            />
-            <div v-else :title="shot.days">
-              {{ shot.days }}
-            </div>
-          </td>
-          <td class="shotCellSmall">
-            <span v-if="editing === index">Not editable</span>
-            <div v-else :title="shot.total">
-              {{ formatCurrency(shot.total) }}
-            </div>
-          </td>
-          <td>
-            <button
-              class="btn"
-              :class="darkMode ? 'btn-light' : 'btn-dark'"
-              @click="deleteShot(shot.id)"
-            >
-              Delete
-            </button>
-          </td>
-          <td>
-            <button
-              class="btn"
-              :class="darkMode ? 'btn-light' : 'btn-dark'"
-              v-if="editing === index"
-              @click="updateShot(shot.id, index)"
-            >
-              Update
-            </button>
-            <button
-              class="btn"
-              :class="darkMode ? 'btn-light' : 'btn-dark'"
-              v-else
-              @click="editShot(index)"
-            >
-              Edit
-            </button>
-          </td>
-          <td>
-            <div v-if="showImageInput === index">
-              <form
-                enctype="multipart/form-data"
-                @submit.prevent="sendImage(shot.id)"
-              >
-                <input
-                  class="form-control"
-                  type="file"
-                  ref="file"
-                  @change="selectFile"
-                />
-                <button type="submit" class="btn btn-light">
-                  Confirm Image
+    <div id="print" class="A3 landscape">
+      <div class="pageout" ref="print">
+        <table
+          class="table table-hover table-striped"
+          :class="darkMode ? 'table-dark' : 'table-light'"
+        >
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Thumbnail</th>
+              <th scope="col">Shot Name</th>
+              <th scope="col">Scene</th>
+              <th scope="col">Description</th>
+              <th scope="col">VFX Work</th>
+              <th scope="col">Methodology</th>
+              <th scope="col">Notes</th>
+              <th scope="col">Days</th>
+              <th scope="col">Total</th>
+              <th scope="col">
+                <button class="btn btn-success" @click="showNewShot">
+                  Add New Shot
                 </button>
-              </form>
-            </div>
-            <div v-else>
-              <button
-                class="btn"
-                :class="darkMode ? 'btn-light' : 'btn-dark'"
-                @click="showImageForm(index)"
-              >
-                Upload Image
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              </th>
+              <th scope="col">
+                <button
+                  class="btn"
+                  :class="darkMode ? 'btn-outline-light' : 'btn-outline-dark'"
+                  @click="csvMaker()"
+                >
+                  Print CSV
+                </button>
+              </th>
+              <th scope="col">
+                <button
+                  class="btn"
+                  :class="darkMode ? 'btn-outline-light' : 'btn-outline-dark'"
+                  @click="darkModeToggle"
+                >
+                  {{ onOff }}
+                </button>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(shot, index) in shots" :key="shot">
+              <th scope="row">
+                {{ index + 1 }}
+              </th>
+              <td class="shotCellSmall">
+                <img class="image" :src="shot.image" alt="shot thumbnail" />
+              </td>
+              <td class="shotCellSmall">
+                <input
+                  v-if="editing === index"
+                  type="text"
+                  v-model="shots[index].name"
+                />
+                <div v-else :title="shot.name">
+                  {{ shot.name }}
+                </div>
+              </td>
+              <td class="shotCellSmall">
+                <input
+                  v-if="editing === index"
+                  type="text"
+                  v-model="shots[index].scene"
+                />
+                <div v-else :title="shot.scene">
+                  {{ shot.scene }}
+                </div>
+              </td>
+              <td class="shotCellLarge">
+                <textarea
+                  v-if="editing === index"
+                  type="text"
+                  v-model="shots[index].description"
+                />
+                <div v-else :title="shot.description">
+                  {{ shot.description }}
+                </div>
+              </td>
+              <td class="shotCellLarge">
+                <textarea
+                  v-if="editing === index"
+                  type="text"
+                  v-model="shots[index].vfx_work"
+                />
+                <div v-else :title="shot.vfx_work">
+                  {{ shot.vfx_work }}
+                </div>
+              </td>
+              <td class="shotCellLarge">
+                <textarea
+                  v-if="editing === index"
+                  type="text"
+                  v-model="shots[index].methodology"
+                />
+                <div v-else :title="shot.methodology">
+                  {{ shot.methodology }}
+                </div>
+              </td>
+              <td class="shotCellLarge">
+                <textarea
+                  v-if="editing === index"
+                  type="text"
+                  v-model="shots[index].notes"
+                />
+                <div v-else :title="shot.notes">
+                  {{ shot.notes }}
+                </div>
+              </td>
+              <td class="shotCellSmall">
+                <input
+                  v-if="editing === index"
+                  type="number"
+                  v-model="shots[index].days"
+                />
+                <div v-else :title="shot.days">
+                  {{ shot.days }}
+                </div>
+              </td>
+              <td class="shotCellSmall">
+                <span v-if="editing === index">Not editable</span>
+                <div v-else :title="shot.total">
+                  {{ formatCurrency(shot.total) }}
+                </div>
+              </td>
+              <td>
+                <button
+                  class="btn"
+                  :class="darkMode ? 'btn-light' : 'btn-dark'"
+                  @click="deleteShot(shot.id)"
+                >
+                  Delete
+                </button>
+              </td>
+              <td>
+                <button
+                  class="btn"
+                  :class="darkMode ? 'btn-light' : 'btn-dark'"
+                  v-if="editing === index"
+                  @click="updateShot(shot.id, index)"
+                >
+                  Update
+                </button>
+                <button
+                  class="btn"
+                  :class="darkMode ? 'btn-light' : 'btn-dark'"
+                  v-else
+                  @click="editShot(index)"
+                >
+                  Edit
+                </button>
+              </td>
+              <td>
+                <div v-if="showImageInput === index">
+                  <form
+                    enctype="multipart/form-data"
+                    @submit.prevent="sendImage(shot.id)"
+                  >
+                    <input
+                      class="form-control"
+                      type="file"
+                      ref="file"
+                      @change="selectFile"
+                    />
+                    <button type="submit" class="btn btn-light">
+                      Confirm Image
+                    </button>
+                  </form>
+                </div>
+                <div v-else>
+                  <button
+                    class="btn"
+                    :class="darkMode ? 'btn-light' : 'btn-dark'"
+                    @click="showImageForm(index)"
+                  >
+                    Upload Image
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import sideBar from "@/components/ui/side-bar.vue";
+import { createPdfFromHtml } from "@/logic.js";
+
+import csvDownload from "json-to-csv-export";
 
 export default {
   components: {
@@ -199,7 +215,7 @@ export default {
   },
   data() {
     return {
-      shots: [],
+      shots: {},
       darkMode: false,
       onOff: "Dark Mode",
       editing: false,
@@ -215,6 +231,29 @@ export default {
     this.printList();
   },
   methods: {
+    csvMaker() {
+      const newArray = this.shots;
+      newArray.forEach((object) => {
+        delete object["id"];
+        delete object["image"];
+        delete object["bid_id"];
+        delete object["created_at"];
+        delete object["updated_at"];
+      });
+      console.log(newArray);
+      const currentdate = new Date();
+      const dataToConvert = {
+        data: this.shots,
+        filename: "shots_" + currentdate,
+        delimiter: ",",
+      };
+      csvDownload(dataToConvert);
+      this.printList();
+    },
+    download() {
+      console.log(this.$refs.print);
+      createPdfFromHtml(this.$refs.print);
+    },
     showNewShot() {
       this.showNewForm = !this.showNewForm;
     },
