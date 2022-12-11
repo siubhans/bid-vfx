@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const API_URL = "http://100.24.105.176:3000/";
-const API_URL = "http://localhost:3000/";
+const API_URL = "http://100.24.105.176:3000/";
+// const API_URL = "http://localhost:3000/";
 
 const securedAxiosInstance = axios.create({
   baseURL: API_URL,
@@ -77,7 +77,7 @@ imageAxiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
-  imageAxiosInstance.interceptors.response.use(null, (error) => {
+imageAxiosInstance.interceptors.response.use(null, (error) => {
   if (
     error.response &&
     error.response.config &&
@@ -104,6 +104,5 @@ imageAxiosInstance.interceptors.request.use((config) => {
     return Promise.reject(error);
   }
 });
-
 
 export { imageAxiosInstance, securedAxiosInstance, plainAxiosInstance };

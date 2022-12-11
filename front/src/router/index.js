@@ -55,6 +55,7 @@ const routes = [
     name: "buildBid",
     component: buildBid,
   },
+  { path: "/:pathMatch(.*)", redirect: "/" },
 ];
 
 const router = createRouter({

@@ -34,7 +34,6 @@ export default {
         .get(`/current`)
         .then((response) => {
           this.currentUser = response.data;
-          console.log(this.currentUser.id);
         })
         .catch(() => {
           this.currentUser = {};

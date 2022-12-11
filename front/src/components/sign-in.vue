@@ -89,7 +89,7 @@ export default {
       delete localStorage.signedIn;
     },
     checkSignedIn() {
-      if (!this.currentUser) {
+      if (localStorage.csrf) {
         this.$router.replace("/bidsView");
       }
     },

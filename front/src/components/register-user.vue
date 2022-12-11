@@ -79,7 +79,6 @@ export default {
   },
   methods: {
     register() {
-      console.log('made it here');
       this.plain
         .post("/signup", {
           email: this.email,
@@ -111,7 +110,7 @@ export default {
       delete localStorage.signedIn;
     },
     checkSignedIn() {
-      if (localStorage.signedIn == 1) {
+      if (localStorage.csrf) {
         this.$router.replace("/bidsView");
       }
     },
