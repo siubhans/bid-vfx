@@ -10,6 +10,7 @@ import {
 } from "./backend/axios";
 import VueSidebarMenuAkahon from "vue-sidebar-menu-akahon";
 import SvgIcon from "vue3-icon";
+import JsonCSV from "vue-json-csv";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -31,6 +32,7 @@ createApp(App)
   .component("vue-sidebar-menu-akahon", VueSidebarMenuAkahon)
   .component("svg-icon", SvgIcon)
   .component("font-awesome-icon", FontAwesomeIcon)
+  .component("downloadCsv", JsonCSV)
   .mount("#app");
 
 import "bootstrap/dist/js/bootstrap.min.js";
