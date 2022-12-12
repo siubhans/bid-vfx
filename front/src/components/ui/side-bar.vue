@@ -42,17 +42,17 @@ export default {
           tooltip: "clients",
           icon: "bx-group",
         },
-        // {
-        //   link: "/usersView",
-        //   name: "users",
-        //   tooltip: "users",
-        //   icon: "bx-user",
-        // },
         {
           link: "/studioView",
           name: "studio",
           tooltip: "studio",
           icon: "bx-home-circle",
+        },
+        {
+          link: "/searchView",
+          name: "search shots",
+          tooltip: "search",
+          icon: "bx-search-alt-2",
         },
       ],
     };

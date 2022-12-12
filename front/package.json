@@ -29,13 +29,18 @@
     "html-pdf": "^3.0.1",
     "html2canvas": "^1.4.1",
     "json-to-csv-export": "^2.1.1",
+    "lodash": "^4.17.21",
+    "node-sass": "^8.0.0",
     "pdfmake": "^0.2.6",
+    "sass-loader": "^13.2.0",
     "vue": "^3.2.13",
     "vue-axios": "^3.5.2",
     "vue-json-csv": "^2.1.0",
+    "vue-lodash": "^2.1.2",
     "vue-resource": "^1.5.3",
     "vue-router": "^4.1.6",
     "vue-sidebar-menu-akahon": "^0.1.4",
+    "vue3-html2pdf": "^1.1.2",
     "vue3-icon": "^2.1.0"
   },
   "devDependencies": {

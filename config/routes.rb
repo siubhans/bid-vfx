@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   delete "clients/:id", to: "api/v1/clients#destroy"
 
   get "shots", to: "api/v1/shots#index"
+  get "allShots", to: "api/v1/shots#showShots"
   get "shots/:id", to: "api/v1/shots#show"
   post "shots", to: "api/v1/shots#create"
   patch "shots/:id", to: "api/v1/shots#update"
