@@ -1,7 +1,10 @@
 <template>
   <div>
     <sideBar v-if="loggedIn" />
-    <div class="flexContainer">
+    <div class="outterContainer">
+      <mainHeading title="Search Shots" />
+    </div>
+    <div class="outterContainer">
       <input
         class="input-group-text"
         type="text"
@@ -73,10 +76,12 @@
 
 <script>
 import sideBar from "@/components/ui/side-bar.vue";
+import mainHeading from "@/components/ui/main-heading.vue";
 
 export default {
   components: {
     sideBar,
+    mainHeading,
   },
   data() {
     return {
@@ -176,8 +181,10 @@ export default {
   background-color: var(--secondaryNavy);
   color: var(--white);
 }
-.flexContainer {
-  display: flex;
+.outterContainer {
   margin: 1rem;
+}
+.btn {
+  margin-left: 1rem;
 }
 </style>

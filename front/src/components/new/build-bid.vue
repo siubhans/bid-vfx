@@ -3,16 +3,18 @@
     <sideBar v-if="loggedIn" />
     <!-- <button @click="download">Print PDF</button> -->
     <form v-if="showNewForm" @submit.prevent="addNewShot">
-      <div class="form-group">
-        <label for="newName">Enter Shot Name</label>
+      <div class="outterContainer">
         <input
           type="text"
-          class="form-control"
+          class="input-group-text flex-1"
           id="newName"
           v-model="newName"
+          placeholder="Enter new shot name"
         />
+        <button type="submit" class="btn btn-success flex-2">
+          Create Shot
+        </button>
       </div>
-      <button type="submit" class="btn btn-success">Create Shot</button>
     </form>
     <div id="print" class="A3 landscape">
       <div class="pageout" ref="print">
@@ -33,8 +35,12 @@
               <th scope="col">Days</th>
               <th scope="col">Total</th>
               <th scope="col">
-                <button class="btn btn-success" @click="showNewShot">
-                  Add New Shot
+                <button
+                  class="btn btn-success"
+                  :class="{ disabled: showNewForm }"
+                  @click="showNewShot"
+                >
+                  Add Shot
                 </button>
               </th>
               <th scope="col">
@@ -377,9 +383,20 @@ export default {
   overflow: hidden;
   font-size: 10px;
 }
+
 .image {
   height: 100px;
   border-radius: 10px;
   border: 2px solid white;
+}
+
+.flex-1 {
+  margin: 0.5rem;
+  width: 20%;
+}
+
+.flex-2 {
+  margin: 0.5rem;
+  width: 10%;
 }
 </style>
