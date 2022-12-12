@@ -275,11 +275,6 @@ export default {
 </script>
 
 <style scoped>
-.table {
-  margin-right: 1rem;
-  margin-left: 1rem;
-}
-
 .btn-filter {
   background-color: var(--secondaryNavy);
   color: var(--white);

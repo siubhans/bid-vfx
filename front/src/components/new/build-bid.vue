@@ -1,7 +1,7 @@
 <template>
   <div>
     <sideBar v-if="loggedIn" />
-    <!-- <button @click="download">Print PDF</button> -->
+    <!-- <button @click="printDocument">Print PDF</button> -->
     <form v-if="showNewForm" @submit.prevent="addNewShot">
       <div class="outterContainer">
         <input
@@ -16,8 +16,8 @@
         </button>
       </div>
     </form>
-    <div id="print" class="A3 landscape">
-      <div class="pageout" ref="print">
+    <div id="divToPrint">
+      <div ref="print">
         <table
           class="table table-hover table-striped"
           :class="darkMode ? 'table-dark' : 'table-light'"
@@ -211,9 +211,11 @@
 
 <script>
 import sideBar from "@/components/ui/side-bar.vue";
-import { createPdfFromHtml } from "@/logic.js";
 
 import csvDownload from "json-to-csv-export";
+// import pdfMake from "pdfmake/build/pdfmake";
+// import pdfFonts from "pdfmake/build/vfs_fonts";
+// pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export default {
   components: {
@@ -237,6 +239,14 @@ export default {
     this.printList();
   },
   methods: {
+    // printDocument() {
+    //   // var docDefinition = {
+    //   //   content: "ssf",
+    //   // };
+    //   // this.$refs.file.pdfMake.createPdf();
+    //   console.log(this.$refs.print);
+    //   pdfMake.createPdf(this.$refs.file).download("shots.pdf");
+    // },
     csvMaker() {
       const newArray = this.shots;
       newArray.forEach((object) => {
@@ -255,10 +265,6 @@ export default {
       };
       csvDownload(dataToConvert);
       this.printList();
-    },
-    download() {
-      console.log(this.$refs.print);
-      createPdfFromHtml(this.$refs.print);
     },
     showNewShot() {
       this.showNewForm = !this.showNewForm;

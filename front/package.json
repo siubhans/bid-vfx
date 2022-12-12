@@ -27,6 +27,7 @@
     "core-js": "^3.8.3",
     "eslint-plugin-vue": "^8.0.3",
     "html-pdf": "^3.0.1",
+    "html-to-pdfmake": "^2.4.9",
     "html2canvas": "^1.4.1",
     "json-to-csv-export": "^2.1.1",
     "lodash": "^4.17.21",
@@ -41,7 +42,8 @@
     "vue-router": "^4.1.6",
     "vue-sidebar-menu-akahon": "^0.1.4",
     "vue3-html2pdf": "^1.1.2",
-    "vue3-icon": "^2.1.0"
+    "vue3-icon": "^2.1.0",
+    "vue3-pdfmake": "^1.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
