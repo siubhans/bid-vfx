@@ -49,8 +49,13 @@ export default {
 <style>
 @import "./style/variables.css";
 
+html {
+  background-color: var(--mainNavy);
+}
+
 #app {
   height: 100vh;
+  width: 100vw;
   background-color: var(--mainNavy);
   color: var(--white);
   padding: 0;
