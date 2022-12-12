@@ -13,7 +13,13 @@
       />
       <button class="btn btn-filter" @click="filterShot">Search Shots</button>
     </div>
-    <table class="table table-hover table-striped table-secondary">
+    <div class="outterContainer">
+      <p class="error">{{ error }}</p>
+    </div>
+    <table
+      v-if="newShots.length"
+      class="table table-hover table-striped table-secondary"
+    >
       <thead>
         <tr>
           <th scope="col">Shot Name</th>
@@ -88,6 +94,7 @@ export default {
       shots: {},
       searchValue: "",
       newShots: {},
+      error: "",
     };
   },
   created() {
@@ -165,7 +172,14 @@ export default {
           }
         });
       }
-      this.newShots = filteredShots;
+      if (filteredShots.length === 0) {
+        this.error = "No search results, try new search";
+        this.newShots = {};
+      } else {
+        this.error = "";
+        this.newShots = filteredShots;
+        this.searchValue = "";
+      }
     },
   },
   computed: {

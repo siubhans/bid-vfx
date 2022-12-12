@@ -4681,6 +4681,11 @@ html-tags@^3.1.0:
   resolved "https://registry.yarnpkg.com/html-tags/-/html-tags-3.2.0.tgz#dbb3518d20b726524e4dd43de397eb0a95726961"
   integrity sha512-vy7ClnArOZwCnqZgvv+ddgHgJiAFXe3Ge9ML5/mBctVJoUoYPCdxVucOywjDARn6CVoh3dRSFdPHy2sX80L0Wg==
 
+html-to-pdfmake@^2.4.9:
+  version "2.4.9"
+  resolved "https://registry.yarnpkg.com/html-to-pdfmake/-/html-to-pdfmake-2.4.9.tgz#09471b62b41298806e33c4ed4ccd29ca201b1cb1"
+  integrity sha512-5qwsKw8cFO2A5Xf+Z5Ql8deIr5+nA9Ge3oMp/aPP4Xwf6lBpsQ1ek45OCXCLIjTEXFefJY8VgtW47jg2C4gX9A==
+
 html-webpack-plugin@^5.1.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-5.5.0.tgz#c3911936f57681c1f9f4d8b68c158cd9dfe52f50"
@@ -6315,6 +6320,16 @@ path-type@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
+
+pdfmake@0.3.0-beta.3:
+  version "0.3.0-beta.3"
+  resolved "https://registry.yarnpkg.com/pdfmake/-/pdfmake-0.3.0-beta.3.tgz#dd1e941b4b2057b07210b575bc6ee30f697a1849"
+  integrity sha512-sDztkn6az36JH8BeO2ZaBoKTwfiJwNK60+xxi/7mjhVQa8FjnOlE3CaXiHRhctb7oYwPm7cAPwLwQJnO1hssDA==
+  dependencies:
+    "@foliojs-fork/linebreak" "^1.1.1"
+    "@foliojs-fork/pdfkit" "^0.13.0"
+    iconv-lite "^0.6.3"
+    xmldoc "^1.1.2"
 
 pdfmake@^0.2.6:
   version "0.2.6"
@@ -8102,7 +8117,7 @@ vue-axios@^3.5.2:
   resolved "https://registry.yarnpkg.com/vue-axios/-/vue-axios-3.5.2.tgz#28637524cca550a9e97197e85a41930ec63604d5"
   integrity sha512-GP+dct7UlAWkl1qoP3ppw0z6jcSua5/IrMpjB5O8bh089iIiJ+hdxPYH2NPEpajlYgkW5EVMP95ttXWdas1O0g==
 
-vue-demi@^0.13.11:
+vue-demi@^0.13.11, vue-demi@latest:
   version "0.13.11"
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.13.11.tgz#7d90369bdae8974d87b1973564ad390182410d99"
   integrity sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==
@@ -8203,6 +8218,14 @@ vue3-icon@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/vue3-icon/-/vue3-icon-2.1.0.tgz#9b217204eaeed20e428ec7615fac5579b66d396f"
   integrity sha512-cnFiGAEwzp/KQKody2Yj8cBDP4Kez0AUp5mDnp052FA1fECl8a9uYUKLaeRdH0JakmZ7Jfp3tdHbpBEWF9sgBA==
+
+vue3-pdfmake@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/vue3-pdfmake/-/vue3-pdfmake-1.2.1.tgz#bcbb4a74a98b9b1ac2ed06e30c13bc8686fbaba2"
+  integrity sha512-i/i7L2AxuPg0i7ERgOFK8IinFhIDw+w+Be+e0UgYkyPp4OPkHryq3u+r8sn9pnVDSD5zac5EGTpkKqdivdq6kA==
+  dependencies:
+    pdfmake "0.3.0-beta.3"
+    vue-demi latest
 
 vue@^2.6.11:
   version "2.7.14"
