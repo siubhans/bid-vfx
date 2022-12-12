@@ -111,7 +111,7 @@ export default {
 </script>
 <style scoped>
 body {
-  padding-left: 0;
+  padding: 0;
 }
 
 .imgBG {

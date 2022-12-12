@@ -173,6 +173,9 @@ export default {
 };
 </script>
 <style scoped>
+body {
+  padding: 0;
+}
 .imgBG {
   position: fixed;
   left: 0;
