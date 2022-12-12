@@ -277,6 +277,7 @@ export default {
         .delete(`/shots/${shot}`)
         .then(() => {
           this.printList();
+          this.editing = false;
         })
         .catch((error) => console.log(error, "Cannot delete record"));
     },

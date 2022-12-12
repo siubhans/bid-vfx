@@ -11,6 +11,13 @@ module Api
     render json: @shots
   end
 
+   # GET /shots
+  def showShots
+    @bids =  current_user.bids
+    @shots =  Shot.where(:bid_id => @bids)
+        render :json => @shots
+  end
+
   # GET /shots/1
   def show
     render json: @shot

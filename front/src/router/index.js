@@ -8,6 +8,7 @@ import studioView from "@/components/views/studio-view.vue";
 import newClient from "@/components/new/new-client.vue";
 import newBid from "@/components/new/new-bid.vue";
 import buildBid from "@/components/new/build-bid.vue";
+import searchView from "@/components/views/search-view.vue";
 
 const routes = [
   {
@@ -54,6 +55,11 @@ const routes = [
     path: "/buildBid",
     name: "buildBid",
     component: buildBid,
+  },
+  {
+    path: "/searchView",
+    name: "searchView",
+    component: searchView,
   },
   { path: "/:pathMatch(.*)", redirect: "/" },
 ];
