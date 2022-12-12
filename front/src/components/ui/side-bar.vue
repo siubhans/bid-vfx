@@ -81,4 +81,11 @@ export default {
 .nav-list {
   overflow: hidden;
 }
+.sidebar div img {
+  margin-left: 5px;
+  margin-right: 15px;
+}
+.sidebar li i {
+  margin-left: 2px;
+}
 </style>
