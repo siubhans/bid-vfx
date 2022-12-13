@@ -69,7 +69,18 @@
                 {{ index + 1 }}
               </th>
               <td class="shotCellSmall">
-                <img class="image" :src="shot.image" alt="shot thumbnail" />
+                <img
+                  v-if="shot.image"
+                  class="image"
+                  :src="shot.image"
+                  alt="shot thumbnail"
+                />
+                <img
+                  v-else
+                  class="image"
+                  src="@/assets/shot.png"
+                  alt="shot thumbnail"
+                />
               </td>
               <td class="shotCellSmall">
                 <input
@@ -337,17 +348,14 @@ export default {
     },
     selectFile() {
       this.file = this.$refs.file[0].files[0];
-      console.log("1", this.$refs.file[0].files[0]);
     },
     sendImage(shot) {
       let formData = new FormData();
       formData.append("file", this.file);
-      console.log("2", ...formData.entries());
       this.secured
         .patch(`/shotsImage/${shot}`, formData)
         .then((response) => {
-          console.log("3", ...formData.entries());
-          console.log("4", response.data);
+          console.log(response.data);
         })
         .then(() => {
           this.editing = false;
