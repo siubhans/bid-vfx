@@ -78,11 +78,20 @@
             <span v-else>{{ bid.fps }}</span>
           </td>
           <td>
-            <input
+            <select
               v-if="editing === index"
-              type="text"
+              class="form-select"
+              aria-label="Default select example"
               v-model="bids[index].resolution"
-            />
+              id="resolution"
+            >
+              <option>
+                {{ bids[index].resolution }}
+              </option>
+              <option v-for="res in resolutions" :key="res">
+                {{ res }}
+              </option>
+            </select>
             <span v-else>{{ bid.resolution }}</span>
           </td>
           <td>
@@ -150,6 +159,17 @@ export default {
       clients: {},
       selectedClient: "",
       listIsFiltered: false,
+      resolutions: [
+        "2k HD (1920 × 1080)",
+        "2K (2048 x 1080)",
+        "4K (4096 x 2160)",
+        "4K UHD (3840 × 2160)",
+        "5K (5120 × 2700)",
+        "8K UHD (7680 × 4320)",
+        "720p (1280 × 720)",
+        "576p (720 × 576)",
+        "480p (720 × 480)",
+      ],
     };
   },
   created() {

@@ -55,7 +55,6 @@ html {
 
 #app {
   height: 100vh;
-  width: 100vw;
   background-color: var(--mainNavy);
   color: var(--white);
   padding: 0;

@@ -31,15 +31,9 @@
           Confirm Studio Details
         </button>
       </form>
+      <mainHeading :title="studio.name" />
       <form enctype="multipart/form-data" @submit.prevent="sendFile">
-        <input
-          v-if="editing"
-          class="input-group mb-3"
-          type="text"
-          v-model="studio.name"
-        />
-        <mainHeading v-else :title="studio.name" />
-        <div class="input-group input-group-sm mb-3">
+        <div class="input-group input-group-sm mb-3 mt-4">
           <input
             v-if="editing"
             class="form-control"
@@ -58,7 +52,9 @@
         <div v-if="editing">
           <br />
           <button type="submit" class="btn btn-light">Update</button>
-          <button class="btn btn-light" @click="editing = false">Cancel</button>
+          <button class="btn btn-light btn-light-r" @click="editing = false">
+            Cancel
+          </button>
         </div>
         <div v-else>
           <br />
@@ -188,7 +184,7 @@ export default {
       // formData.append("studio[name]", this.studio.name);
 
       this.secured
-        .put(`/studios/${this.studio.id}`, formData)
+        .patch(`/studios/${this.studio.id}`, formData)
         .then(() => console.log(...formData.entries()))
         .then(() => {
           this.editing = false;
@@ -210,5 +206,11 @@ export default {
   width: 200px;
   border-radius: 10px;
   border: 2px solid white;
+}
+.btn-light-r {
+  margin-left: 1rem;
+}
+.input-group-sm {
+  width: 50%;
 }
 </style>
