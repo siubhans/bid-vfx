@@ -2,7 +2,7 @@
   <div>
     <div class="container flexContainer">
       <superiorHeading class="flex-1" title="Bid VFX" />
-      <div class="container flex-2">
+      <div class="flex-2">
         <form @submit.prevent="signin">
           <div v-if="error" class="error">{{ error }}</div>
           <div class="input-icons mb-4">
@@ -122,6 +122,12 @@ body {
   opacity: 0.4;
 }
 
+@media all and (max-width: 600px) {
+  .imgBG {
+    display: none;
+  }
+}
+
 .error {
   -webkit-text-fill-color: var(--alertRed);
 }
@@ -176,6 +182,12 @@ input:-webkit-autofill:focus {
   }
 }
 
+@media all and (max-width: 900px) {
+  .input-field {
+    width: 100%;
+  }
+}
+
 .flex-1 {
   flex: 1;
 }
@@ -185,6 +197,13 @@ input:-webkit-autofill:focus {
   margin-top: 35vh;
 }
 
+@media all and (max-width: 600px) {
+  .flex-2 {
+    flex: 3;
+    margin-top: 10vh;
+  }
+}
+
 .button_login {
   width: 70%;
   border-radius: 50px;
@@ -192,6 +211,12 @@ input:-webkit-autofill:focus {
   border: none;
   height: 50px;
   color: var(--white);
+}
+
+@media all and (max-width: 900px) {
+  .button_login {
+    width: 100%;
+  }
 }
 
 .button_login:hover {

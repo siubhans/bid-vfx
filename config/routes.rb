@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
   get "studios", to: "api/v1/studios#index"
   post "studios", to: "api/v1/studios#create"
-  put "studios/:id", to: "api/v1/studios#update"
+  patch "studios/:id", to: "api/v1/studios#update"
   
   post "signin", to: "signin#create"
   post "refresh", controller: :refresh, action: :create 
