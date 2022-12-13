@@ -49,6 +49,7 @@ module Api
       puts params[:file]
       @shot.pic.attach(params[:file])
       # Generate a url for front end
+      puts url_for(@shot.pic)
       image = url_for(@shot.pic)
     end
       # Generate a url for front end

@@ -180,7 +180,7 @@ export default {
     },
     sendFile() {
       let formData = new FormData();
-      formData.append("studio[file]", this.file);
+      formData.append("file", this.file);
       // formData.append("studio[name]", this.studio.name);
 
       this.secured

@@ -41,6 +41,7 @@ module Api
         if params[:file]
           # The data is a file upload coming from <input type="file" />
           @studio.image.attach(params[:file])
+          puts url_for(@studio.image)
           # Generate a url for easy display on the front end 
           logo = url_for(@studio.image)
         end
@@ -61,7 +62,7 @@ module Api
         end
 
         def studio_params
-          params.require(:studio).permit(:name, :logo, :image)
+          params.require(:studio).permit(:name, :logo, :image, :file)
         end
     end
   end
